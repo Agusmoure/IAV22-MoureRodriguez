@@ -4,6 +4,7 @@ using UnityEngine;
 public class JSONReader : MonoBehaviour
 {
     public TextAsset PokemonFile;
+    public TextAsset AttackFile;
     #region AuxClass
     //Para poder emular una base de datos relacional y poder leer de JSON de manera sencilla se crean una serie de clases auxiliares
     [System.Serializable]
@@ -15,7 +16,6 @@ public class JSONReader : MonoBehaviour
         public string type2;
     }
     [System.Serializable]
-
      class PokemonsAux
     {
         public PokemonDBAux[] pokemonsAux;
@@ -23,14 +23,18 @@ public class JSONReader : MonoBehaviour
     [System.Serializable]
      class AttackAux
     {
-        string id;
-        string name;
-        string type;
-        int damage;
-        string damageType;
-        int pp;
+      public  string id;
+        public string name;
+        public string type;
+        public int damage;
+        public string damageType;
+        public int pp;
     }
-
+    [System.Serializable]
+    class AttacksAux
+    {
+        public AttackAux[] attacksAux;
+    }
     [System.Serializable]
     public class StatsAux
     {
@@ -43,17 +47,23 @@ public class JSONReader : MonoBehaviour
     }
 
     #endregion
+    AttacksAux attacksAux;
     PokemonsAux pokemonsAux;
     Pokemons pokemons=new Pokemons();
     // Start is called before the first frame update
     void Start()
     {
          pokemonsAux= JsonUtility.FromJson<PokemonsAux>(PokemonFile.text);
+         attacksAux= JsonUtility.FromJson<AttacksAux>(AttackFile.text);
         Debug.Log(pokemonsAux.pokemonsAux);
         foreach (PokemonDBAux pokemon in pokemonsAux.pokemonsAux)
         {
             Debug.Log("Found Pokemon: " + pokemon.natDexNumber + " " + pokemon.name + " " + pokemon.type1 + " " + pokemon.type2);
             pokemons.add(PokemonAuxtoPokemon(pokemon));
+        }
+        foreach (AttackAux a in attacksAux.attacksAux)
+        {
+            Debug.Log("Found attack: " +a.id );
         }
     }
 
@@ -75,6 +85,12 @@ public class JSONReader : MonoBehaviour
         return new PokemonDB(p.natDexNumber, p.name, t1, t2);
 
     }
+    Attack AttackAuxToAttack(AttackAux a)
+    {
+        PokemonType t = getTypeFromString(a.type);
+        StatsType st = getStatsTypeFromString(a.damageType);
+        return new Attack(a.id, a.name, t, a.damage, st, a.pp);
+    }
     PokemonType getTypeFromString(string type)
     {
         switch (type.ToLower())
@@ -89,6 +105,18 @@ public class JSONReader : MonoBehaviour
                 return  PokemonType.Psiquico;
             default:
                 return  PokemonType.None;
+        }
+    }
+    StatsType getStatsTypeFromString(string type)
+    {
+        switch (type.ToLower())
+        {
+            case "fisico":
+                return StatsType.Fisico;
+            case "especial":
+                return StatsType.Especial;
+            default:
+                return StatsType.None;
         }
     }
 }

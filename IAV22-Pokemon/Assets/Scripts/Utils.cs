@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum PokemonType { None,Siniestro,Roca,Psiquico,Fantasma,Normal,Lucha}
-public enum StatsType { Physical, Special }
+public enum StatsType { Fisico, Especial,None }
 [System.Serializable]
 public class PokemonDB
 {
@@ -90,6 +90,16 @@ public class Attack
     {
         get { return _pp; }
         set { _pp = value; }
+    }
+
+    public Attack(string id_,string na,PokemonType ty,int dam,StatsType st,int ammount)
+    {
+        _id = id_;
+        _name = na;
+        _type = ty;
+        _damage = dam;
+        _damageType = st;
+        _pp = ammount;
     }
 }
 

@@ -1,0 +1,36 @@
+{
+    "attacksAux":[
+        {
+             "id":"MT0100",
+             "name":"Golpe Bajo",
+             "type":"Siniestro",
+             "damage":70,
+             "damageType":"Fisico",
+             "pp":15
+        },
+        {
+            "id":"MT0097",
+            "name":"Pulso umbrio",
+            "type":"Siniestro",
+            "damage":80,
+            "damageType":"Especial",
+            "pp":20
+       },
+       {
+        "id":";T0095",
+        "name":"Alarido",
+        "type":"Siniestro",
+        "damage":55,
+        "damageType":"Especial",
+        "pp":15
+   },
+   {
+    "id":"MT0101",
+    "name":"Triturar",
+    "type":"Siniestro",
+    "damage":70,
+    "damageType":"Fisico",
+    "pp":15
+}
+    ]
+}

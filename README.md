@@ -41,5 +41,5 @@ Para ello se usuarían los archivos que se pueden encontrar en [DBFiles](DBFiles
 1. [CreateTables.sql](DBFiles/CreateTables.sql)
 2. [Inserts.sql](DBFiles/Inserts.sql)
 
-Sin embargo debido a la falta de conocimientos y la dificultad que suponia conectar la base de datos con el proyecto Unity se descartó y se pasó hacer una carga de datos mediante archivos.
+Sin embargo debido a la falta de conocimientos y la dificultad que suponia conectar la base de datos con el proyecto Unity se descartó y se pasó hacer una carga de datos mediante archivos JSON, para ellos se tendrán varios archivos JSON.
 
