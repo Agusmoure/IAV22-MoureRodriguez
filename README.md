@@ -3,7 +3,7 @@ Este repositorio alberga el proyecto final de la asignatura de IAV del curso 21-
 
 ## Propuesta
 
-Para el proyecta final se hará una IA parecida a la de los combates que se aprecian en los juegos de Pokémon, para ello se usará un sistema parecido al que tiene pokemon, pero más básico, como por ejemplo: se ignoraran las habilidades de los pokémon como pueden ser: intimidación , presión, bromista,... sin embargo si se tendrá en cuenta la diferencia de tipos, los tipos de ataque, la diferencia entre ataque físico y ataque especial.
+Para el proyecto final se hará una IA parecida a la de los combates que se aprecian en los juegos de Pokémon, para ello se usará un sistema parecido al que tiene pokemon, pero más básico, como por ejemplo: se ignoraran las habilidades de los pokémon como pueden ser: intimidación , presión, bromista,... sin embargo si se tendrá en cuenta la diferencia de tipos, los tipos de ataque, la diferencia entre ataque físico y ataque especial.
 
 Para ello nuestra IA simulará ser un lider de Gimnasio por lo que tendrá de 2 a 4 pokemons, como mínimo uno sera tipo Siniestro puro y como mínimo otro contará con un doble tipo y las consecuencias de esto. 
 
@@ -15,7 +15,7 @@ En este combaté se supondrá que no existen objetos curativos tales como pocion
 
 Además en un principio no se tendrán en cuenta ataques que puedan alterar las stats ni el estado del pokemon, aunque esto puede variar.
 
-Se intentarña hacer una base de datos relacional (SQL) que contendrá los datos de los pokemons, los movimientos, etc...
+Se intentará hacer una base de datos relacional (SQL) que contendrá los datos de los pokemons, los movimientos, etc...
 
 ## Introducción
 
@@ -40,3 +40,6 @@ Para ello se usuarían los archivos que se pueden encontrar en [DBFiles](DBFiles
 
 1. [CreateTables.sql](DBFiles/CreateTables.sql)
 2. [Inserts.sql](DBFiles/Inserts.sql)
+
+Sin embargo debido a la falta de conocimientos y la dificultad que suponia conectar la base de datos con el proyecto Unity se descartó y se pasó hacer una carga de datos mediante archivos.
+
