@@ -41,5 +41,10 @@ Para ello se usuarían los archivos que se pueden encontrar en [DBFiles](DBFiles
 1. [CreateTables.sql](DBFiles/CreateTables.sql)
 2. [Inserts.sql](DBFiles/Inserts.sql)
 
-Sin embargo debido a la falta de conocimientos y la dificultad que suponia conectar la base de datos con el proyecto Unity se descartó y se pasó hacer una carga de datos mediante archivos JSON, para ellos se tendrán varios archivos JSON.
+Sin embargo debido a la falta de conocimientos y la dificultad que suponia conectar la base de datos con el proyecto Unity se descartó y se pasó hacer una carga de datos mediante archivos JSON, para ellos se tendrán varios archivos. Mediante el código de C# los datos en los JSONs se relacionarán entre ellos, simulando una base de datos relacional. Para ello se hará uso de la clase [Dictionary](https://docs.microsoft.com/es-es/dotnet/api/system.collections.generic.dictionary-2?view=net-6.0). Por desgracia al usar JSON no se puede poner como condición que la clave de un dato debe encontrarse en otra entidad,como si se podría en SQL, usando lo siguiente:
+```SQL
+--...
+id VARCHAR(N) NOT NULL REFERENCES entidad(atributo),
+--...
+```
 

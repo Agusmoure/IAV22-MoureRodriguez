@@ -1,0 +1,14 @@
+{
+    "pokemons":[
+        {
+            "natDexNumber":197,
+            "nickName":"Maia",
+            "id":"LS1"
+        },
+        {
+            "natDexNumber":248,
+            "nickName":"Rod",
+            "id":"LS2"
+        }
+    ]
+}

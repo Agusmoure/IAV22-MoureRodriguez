@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//Esta clase se encarga de leer los JSON y guardarlos en la base de datos.
 public class JSONReader : MonoBehaviour
 {
     public TextAsset PokemonFile;
     public TextAsset AttackFile;
+    public TextAsset GymLeader;
+    DBComponent db;
     #region AuxClass
     //Para poder emular una base de datos relacional y poder leer de JSON de manera sencilla se crean una serie de clases auxiliares
     [System.Serializable]
@@ -18,7 +21,7 @@ public class JSONReader : MonoBehaviour
     [System.Serializable]
      class PokemonsAux
     {
-        public PokemonDBAux[] pokemonsAux;
+        public PokemonDBAux[] pokemons;
     }
     [System.Serializable]
      class AttackAux
@@ -33,7 +36,7 @@ public class JSONReader : MonoBehaviour
     [System.Serializable]
     class AttacksAux
     {
-        public AttackAux[] attacksAux;
+        public AttackAux[] attacks;
     }
     [System.Serializable]
     public class StatsAux
@@ -45,38 +48,51 @@ public class JSONReader : MonoBehaviour
         public int speDefense;
         public int speed;
     }
-
+    [System.Serializable]
+     class PokemonInTeamAux
+    {
+        public string id;
+        public string nickName;
+        public int natDexNumber;
+        
+    }
+    [System.Serializable]
+     class TeamPokemonAux
+    {
+       public PokemonInTeamAux[] pokemons;
+    }
     #endregion
     AttacksAux attacksAux;
     PokemonsAux pokemonsAux;
-    Pokemons pokemons=new Pokemons();
+    TeamPokemonAux tPokemonAux;
     // Start is called before the first frame update
     void Start()
     {
+        db = transform.GetComponent<DBComponent>();
          pokemonsAux= JsonUtility.FromJson<PokemonsAux>(PokemonFile.text);
          attacksAux= JsonUtility.FromJson<AttacksAux>(AttackFile.text);
-        Debug.Log(pokemonsAux.pokemonsAux);
-        foreach (PokemonDBAux pokemon in pokemonsAux.pokemonsAux)
+        tPokemonAux = JsonUtility.FromJson<TeamPokemonAux>(GymLeader.text);
+        foreach (PokemonDBAux pokemon in pokemonsAux.pokemons)
         {
             Debug.Log("Found Pokemon: " + pokemon.natDexNumber + " " + pokemon.name + " " + pokemon.type1 + " " + pokemon.type2);
-            pokemons.add(PokemonAuxtoPokemon(pokemon));
+            db.GetPokemons().add(PokemonAuxtoPokemon(pokemon));
         }
-        foreach (AttackAux a in attacksAux.attacksAux)
+        foreach (AttackAux a in attacksAux.attacks)
         {
             Debug.Log("Found attack: " +a.id );
+            db.GetAttacks().add(AttackAuxToAttack(a));
+        }
+        foreach(PokemonInTeamAux p in tPokemonAux.pokemons)
+        {
+            Debug.Log("Found Pokemon: " +p.id);
+            db.getGymLeader().add(PokemonITAuxToPokemonIT(p));
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            foreach(KeyValuePair<int, PokemonDB>  p in pokemons.getPokemons())
-            {
-                Debug.Log(p.Key + " " + p.Value.type1);
-            }
-        }
+
     }
 
     PokemonDB PokemonAuxtoPokemon(PokemonDBAux p)
@@ -118,5 +134,9 @@ public class JSONReader : MonoBehaviour
             default:
                 return StatsType.None;
         }
+    }
+    PokemonInTeam PokemonITAuxToPokemonIT(PokemonInTeamAux p)
+    {
+        return new PokemonInTeam(p.id,db.GetPokemons().getPokemons()[p.natDexNumber],p.nickName);
     }
 }

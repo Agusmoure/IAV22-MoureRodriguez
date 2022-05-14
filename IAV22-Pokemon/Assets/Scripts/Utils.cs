@@ -5,7 +5,7 @@ using UnityEngine;
 public enum PokemonType { None,Siniestro,Roca,Psiquico,Fantasma,Normal,Lucha}
 public enum StatsType { Fisico, Especial,None }
 [System.Serializable]
-public class PokemonDB
+public struct PokemonDB
 {
     int _natDexNumber;
     string _name;
@@ -53,7 +53,7 @@ public class Pokemons
     public Dictionary<int,PokemonDB> getPokemons() { return pokemons; }
 }
 [System.Serializable]
-public class Attack
+public struct Attack
 {
     string _id;
     string _name;
@@ -102,9 +102,23 @@ public class Attack
         _pp = ammount;
     }
 }
-
 [System.Serializable]
-public class Stats
+public class Attacks
+{
+    public Attacks()
+    {
+        attacks = new Dictionary<string, Attack>();
+    }
+
+    Dictionary<string, Attack> attacks;
+    public void add(Attack a)
+    {
+        attacks[a.id] = a;
+    }
+    public Dictionary<string, Attack> getAttacks() { return attacks; }
+}
+[System.Serializable]
+public struct Stat
 {
     int _hp;
     int _phyDamage;
@@ -144,16 +158,63 @@ public class Stats
         set { _speed = value; }
     }
 }
-
-struct PokemonInGame
+[System.Serializable]
+public class PokemonStats
 {
-    public Stats stats;
-    public PokemonDB pokemon;
-    public string nickName;
-    //public PokemonInGame(PokemonDB p,Stats stats, string nick="")
-    //{
-    //    _pokemon = p;
-    //    _stats = stats;
-    //    _nickName = nick!=""?nick:p.name;
-    //}
+     Stat _stats;
+     string _pokemonId;
+   public  string pokemonId
+    {
+        get { return _pokemonId; }
+        set {  _pokemonId=value; }
+    }
+    public PokemonStats( Stat stats, string id)
+    {
+        _stats = stats;
+        _pokemonId = id;
+    }
+    public Stat getStats() { return _stats; }
+}
+
+[System.Serializable]
+public struct PokemonInTeam
+{
+    string _id;
+    string _nickName;
+    int _pokemon;
+    public string id
+    {
+        get { return _id; }
+        set { _id = value; }
+    }
+    public string nickName
+    {
+        get { return _nickName; }
+        set { _nickName = value; }
+    }
+    public int pokemon
+    {
+        get { return _pokemon; }
+        set { _pokemon = value; }
+    }
+    public PokemonInTeam(string i,PokemonDB poke,string n = "")
+    {
+        _id = i;
+        _pokemon = poke.natDexNumber;
+        _nickName = n == "" ? poke.name : n;
+    }
+}
+[System.Serializable]
+public class TeamPokemon
+{
+    Dictionary<string, PokemonInTeam> pokemons;
+    public TeamPokemon()
+    {
+        pokemons = new Dictionary<string, PokemonInTeam>();
+    }
+    public void add(PokemonInTeam p)
+    {
+        pokemons[p.id] = p;
+    }
+    public Dictionary<string,PokemonInTeam> GetPokemons() { return pokemons; }
 }
