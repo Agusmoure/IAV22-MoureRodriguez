@@ -10,5 +10,23 @@
             "nickName":"Rod",
             "id":"LS2"
         }
+    ],
+    "moves":[
+        {
+            "pokemon":"LS1",
+            "attack":"MT0100"
+        },
+        {
+            "pokemon":"LS1",
+            "attack":"MT0097"
+        },
+        {
+            "pokemon":"LS2",
+            "attack":"MT0095"
+        },
+        {
+            "pokemon":"LS2",
+            "attack":"MT0101"
+        }
     ]
 }

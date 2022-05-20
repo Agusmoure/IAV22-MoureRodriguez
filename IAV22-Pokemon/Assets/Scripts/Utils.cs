@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PokemonType { None,Siniestro,Roca,Psiquico,Fantasma,Normal,Lucha}
-public enum StatsType { Fisico, Especial,None }
+public enum PokemonType { None, Siniestro, Roca, Psiquico, Fantasma, Normal, Lucha }
+public enum StatsType { Fisico, Especial, None }
 [System.Serializable]
 public struct PokemonDB
 {
@@ -31,7 +31,8 @@ public struct PokemonDB
         get { return _type2; }
         set { _type2 = value; }
     }
-    public PokemonDB(int nD,string na,PokemonType t1,PokemonType t2) {
+    public PokemonDB(int nD, string na, PokemonType t1, PokemonType t2)
+    {
         _natDexNumber = nD;
         _name = na;
         _type1 = t1;
@@ -47,10 +48,11 @@ public class Pokemons
         pokemons = new Dictionary<int, PokemonDB>();
     }
     Dictionary<int, PokemonDB> pokemons;
-    public void add(PokemonDB p) {
+    public void add(PokemonDB p)
+    {
         pokemons[p.natDexNumber] = p;
     }
-    public Dictionary<int,PokemonDB> getPokemons() { return pokemons; }
+    public Dictionary<int, PokemonDB> getPokemons() { return pokemons; }
 }
 [System.Serializable]
 public struct Attack
@@ -92,7 +94,7 @@ public struct Attack
         set { _pp = value; }
     }
 
-    public Attack(string id_,string na,PokemonType ty,int dam,StatsType st,int ammount)
+    public Attack(string id_, string na, PokemonType ty, int dam, StatsType st, int ammount)
     {
         _id = id_;
         _name = na;
@@ -121,12 +123,17 @@ public class Attacks
 public struct Stat
 {
     int _hp;
+    int _currHp;
     int _phyDamage;
     int _speDamage;
     int _phyDefense;
     int _speDefense;
-
     int _speed;
+    public int currhp
+    {
+        get { return _currHp; }
+        set { _currHp = hp; }
+    }
     public int hp
     {
         get { return _hp; }
@@ -161,14 +168,14 @@ public struct Stat
 [System.Serializable]
 public class PokemonStats
 {
-     Stat _stats;
-     string _pokemonId;
-   public  string pokemonId
+    Stat _stats;
+    string _pokemonId;
+    public string pokemonId
     {
         get { return _pokemonId; }
-        set {  _pokemonId=value; }
+        set { _pokemonId = value; }
     }
-    public PokemonStats( Stat stats, string id)
+    public PokemonStats(Stat stats, string id)
     {
         _stats = stats;
         _pokemonId = id;
@@ -197,7 +204,7 @@ public struct PokemonInTeam
         get { return _pokemon; }
         set { _pokemon = value; }
     }
-    public PokemonInTeam(string i,PokemonDB poke,string n = "")
+    public PokemonInTeam(string i, PokemonDB poke, string n = "")
     {
         _id = i;
         _pokemon = poke.natDexNumber;
@@ -216,5 +223,40 @@ public class TeamPokemon
     {
         pokemons[p.id] = p;
     }
-    public Dictionary<string,PokemonInTeam> GetPokemons() { return pokemons; }
+    public Dictionary<string, PokemonInTeam> GetPokemons() { return pokemons; }
+}
+[System.Serializable]
+public struct Movement
+{
+    string _pokemon;
+    string _attack;
+    public string pokemon
+    {
+        get { return _pokemon; }
+        set { _pokemon = value; }
+    }
+    public string attack
+    {
+        get { return _attack; }
+        set { _attack = value; }
+    }
+    public Movement(string p, string a)
+    {
+        _pokemon = p;
+        _attack = a;
+    }
+}
+[System.Serializable]
+public class MovementSet
+{
+    Dictionary<string, Movement> moves;
+    public MovementSet()
+    {
+        moves = new Dictionary<string, Movement>();
+    }
+    public void add(Movement m)
+    {
+        moves[m.pokemon + "" + m.attack] = m;
+    }
+    public Dictionary<string, Movement> GetMoves() { return moves; }
 }

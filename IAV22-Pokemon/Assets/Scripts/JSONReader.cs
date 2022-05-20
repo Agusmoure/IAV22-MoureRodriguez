@@ -19,14 +19,14 @@ public class JSONReader : MonoBehaviour
         public string type2;
     }
     [System.Serializable]
-     class PokemonsAux
+    class PokemonsAux
     {
         public PokemonDBAux[] pokemons;
     }
     [System.Serializable]
-     class AttackAux
+    class AttackAux
     {
-      public  string id;
+        public string id;
         public string name;
         public string type;
         public int damage;
@@ -49,43 +49,58 @@ public class JSONReader : MonoBehaviour
         public int speed;
     }
     [System.Serializable]
-     class PokemonInTeamAux
+    class PokemonInTeamAux
     {
         public string id;
         public string nickName;
         public int natDexNumber;
-        
+
     }
     [System.Serializable]
-     class TeamPokemonAux
+    class TeamPokemonAux
     {
-       public PokemonInTeamAux[] pokemons;
+        public PokemonInTeamAux[] pokemons;
+    }
+    [System.Serializable]
+     class MovementAux
+    {
+        public string pokemon;
+        public string attack;
+    }
+    [System.Serializable]
+     class MovementSetAux
+    {
+        public MovementAux[] moves;
     }
     #endregion
     AttacksAux attacksAux;
     PokemonsAux pokemonsAux;
     TeamPokemonAux tPokemonAux;
+    MovementSetAux mSetAux;
     // Start is called before the first frame update
     void Start()
     {
         db = transform.GetComponent<DBComponent>();
-         pokemonsAux= JsonUtility.FromJson<PokemonsAux>(PokemonFile.text);
-         attacksAux= JsonUtility.FromJson<AttacksAux>(AttackFile.text);
+        pokemonsAux = JsonUtility.FromJson<PokemonsAux>(PokemonFile.text);
+        attacksAux = JsonUtility.FromJson<AttacksAux>(AttackFile.text);
         tPokemonAux = JsonUtility.FromJson<TeamPokemonAux>(GymLeader.text);
+        mSetAux = JsonUtility.FromJson<MovementSetAux>(GymLeader.text);
         foreach (PokemonDBAux pokemon in pokemonsAux.pokemons)
         {
-            Debug.Log("Found Pokemon: " + pokemon.natDexNumber + " " + pokemon.name + " " + pokemon.type1 + " " + pokemon.type2);
             db.GetPokemons().add(PokemonAuxtoPokemon(pokemon));
         }
         foreach (AttackAux a in attacksAux.attacks)
         {
-            Debug.Log("Found attack: " +a.id );
             db.GetAttacks().add(AttackAuxToAttack(a));
         }
-        foreach(PokemonInTeamAux p in tPokemonAux.pokemons)
+        foreach (PokemonInTeamAux p in tPokemonAux.pokemons)
         {
-            Debug.Log("Found Pokemon: " +p.id);
-            db.getGymLeader().add(PokemonITAuxToPokemonIT(p));
+            db.GetGymLeaderTeam().add(PokemonITAuxToPokemonIT(p));
+        }
+        foreach(MovementAux m in mSetAux.moves)
+        {
+            Debug.Log(m.pokemon + " " + m.attack);
+            db.GetMovements().add(MovementAuxToMovement(m));
         }
     }
 
@@ -97,7 +112,7 @@ public class JSONReader : MonoBehaviour
 
     PokemonDB PokemonAuxtoPokemon(PokemonDBAux p)
     {
-        PokemonType t1=getTypeFromString(p.type1), t2=getTypeFromString(p.type2);
+        PokemonType t1 = getTypeFromString(p.type1), t2 = getTypeFromString(p.type2);
         return new PokemonDB(p.natDexNumber, p.name, t1, t2);
 
     }
@@ -116,11 +131,11 @@ public class JSONReader : MonoBehaviour
             case "roca":
                 return PokemonType.Roca;
             case "lucha":
-                return  PokemonType.Lucha;
+                return PokemonType.Lucha;
             case "psiquico":
-                return  PokemonType.Psiquico;
+                return PokemonType.Psiquico;
             default:
-                return  PokemonType.None;
+                return PokemonType.None;
         }
     }
     StatsType getStatsTypeFromString(string type)
@@ -137,6 +152,10 @@ public class JSONReader : MonoBehaviour
     }
     PokemonInTeam PokemonITAuxToPokemonIT(PokemonInTeamAux p)
     {
-        return new PokemonInTeam(p.id,db.GetPokemons().getPokemons()[p.natDexNumber],p.nickName);
+        return new PokemonInTeam(p.id, db.GetPokemons().getPokemons()[p.natDexNumber], p.nickName);
+    }
+    Movement MovementAuxToMovement(MovementAux m)
+    {
+        return new Movement(m.pokemon, m.attack);
     }
 }
