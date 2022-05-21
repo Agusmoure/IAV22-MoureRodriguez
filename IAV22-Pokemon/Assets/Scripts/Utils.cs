@@ -63,6 +63,7 @@ public struct Attack
     int _damage;
     StatsType _damageType;
     int _pp;
+    int _currPp;
     public string id
     {
         get { return _id; }
@@ -93,6 +94,11 @@ public struct Attack
         get { return _pp; }
         set { _pp = value; }
     }
+    public int currpp
+    {
+        get { return _currPp; }
+        set { _currPp = value; }
+    }
 
     public Attack(string id_, string na, PokemonType ty, int dam, StatsType st, int ammount)
     {
@@ -102,6 +108,7 @@ public struct Attack
         _damage = dam;
         _damageType = st;
         _pp = ammount;
+        _currPp = ammount;
     }
 }
 [System.Serializable]
@@ -132,8 +139,9 @@ public struct Stat
     public int currhp
     {
         get { return _currHp; }
-        set { _currHp = hp; }
+        set { _currHp = value; }
     }
+    public void SetCurrHp(int val) { currhp = val; }
     public int hp
     {
         get { return _hp; }
@@ -164,25 +172,31 @@ public struct Stat
         get { return _speed; }
         set { _speed = value; }
     }
+    public Stat(int h,int pDa,int pDe,int sDa,int sDe,int s)
+    {
+        _hp = h;
+        _currHp = h;
+        _phyDamage = pDa;
+        _phyDefense = pDe;
+        _speDamage = sDa;
+        _speDefense = sDe;
+        _speed = s;
+    }
 }
 [System.Serializable]
-public class PokemonStats
+public class PokemonsStats
 {
-    Stat _stats;
-    string _pokemonId;
-    public string pokemonId
+    Dictionary<string, Stat> stats;
+    public PokemonsStats()
     {
-        get { return _pokemonId; }
-        set { _pokemonId = value; }
+        stats = new Dictionary<string, Stat>();
     }
-    public PokemonStats(Stat stats, string id)
+    public void add(string id,Stat m)
     {
-        _stats = stats;
-        _pokemonId = id;
+        stats[id]=m;
     }
-    public Stat getStats() { return _stats; }
+    public Dictionary<string, Stat> GetStats() { return stats; }
 }
-
 [System.Serializable]
 public struct PokemonInTeam
 {
@@ -228,35 +242,39 @@ public class TeamPokemon
 [System.Serializable]
 public struct Movement
 {
-    string _pokemon;
+    //string _pokemon;
     string _attack;
-    public string pokemon
-    {
-        get { return _pokemon; }
-        set { _pokemon = value; }
-    }
+    //public string pokemon
+    //{
+    //    get { return _pokemon; }
+    //    set { _pokemon = value; }
+    //}
     public string attack
     {
         get { return _attack; }
         set { _attack = value; }
     }
-    public Movement(string p, string a)
+    public Movement(/*string p,*/ string a)
     {
-        _pokemon = p;
+        // _pokemon = p;
         _attack = a;
     }
 }
 [System.Serializable]
 public class MovementSet
 {
-    Dictionary<string, Movement> moves;
+    Dictionary<string, List<Movement>> moves;
     public MovementSet()
     {
-        moves = new Dictionary<string, Movement>();
+        moves = new Dictionary<string, List<Movement>>();
     }
-    public void add(Movement m)
+    public void add(string id, Movement m)
     {
-        moves[m.pokemon + "" + m.attack] = m;
+        if (!moves.ContainsKey(id))
+        {
+            moves[id] = new List<Movement>();
+        }
+        moves[id].Add(m);
     }
-    public Dictionary<string, Movement> GetMoves() { return moves; }
+    public Dictionary<string, List<Movement>> GetMoves() { return moves; }
 }

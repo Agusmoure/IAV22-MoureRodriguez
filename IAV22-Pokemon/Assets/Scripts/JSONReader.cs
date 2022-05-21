@@ -72,19 +72,38 @@ public class JSONReader : MonoBehaviour
     {
         public MovementAux[] moves;
     }
+
+    [System.Serializable]
+     class StatAux
+    {
+        public int hp;
+        public int phyDamage;
+        public int speDamage;
+        public int phyDefense;
+        public int speDefense;
+        public int speed;
+        public string id;
+    }
+    [System.Serializable]
+     class PokemonsStatsAux
+    {
+        public StatAux[] stats;
+    }
     #endregion
     AttacksAux attacksAux;
     PokemonsAux pokemonsAux;
-    TeamPokemonAux tPokemonAux;
-    MovementSetAux mSetAux;
+    TeamPokemonAux gymTPokemonAux;
+    MovementSetAux gymMSetAux;
+    PokemonsStatsAux gymLeaderStatsAux;
     // Start is called before the first frame update
     void Start()
     {
         db = transform.GetComponent<DBComponent>();
         pokemonsAux = JsonUtility.FromJson<PokemonsAux>(PokemonFile.text);
         attacksAux = JsonUtility.FromJson<AttacksAux>(AttackFile.text);
-        tPokemonAux = JsonUtility.FromJson<TeamPokemonAux>(GymLeader.text);
-        mSetAux = JsonUtility.FromJson<MovementSetAux>(GymLeader.text);
+        gymTPokemonAux = JsonUtility.FromJson<TeamPokemonAux>(GymLeader.text);
+        gymMSetAux = JsonUtility.FromJson<MovementSetAux>(GymLeader.text);
+        gymLeaderStatsAux = JsonUtility.FromJson<PokemonsStatsAux>(GymLeader.text);
         foreach (PokemonDBAux pokemon in pokemonsAux.pokemons)
         {
             db.GetPokemons().add(PokemonAuxtoPokemon(pokemon));
@@ -93,14 +112,18 @@ public class JSONReader : MonoBehaviour
         {
             db.GetAttacks().add(AttackAuxToAttack(a));
         }
-        foreach (PokemonInTeamAux p in tPokemonAux.pokemons)
+        foreach (PokemonInTeamAux p in gymTPokemonAux.pokemons)
         {
             db.GetGymLeaderTeam().add(PokemonITAuxToPokemonIT(p));
         }
-        foreach(MovementAux m in mSetAux.moves)
+        foreach (MovementAux m in gymMSetAux.moves)
         {
-            Debug.Log(m.pokemon + " " + m.attack);
-            db.GetMovements().add(MovementAuxToMovement(m));
+            db.GetMovements().add(m.pokemon,MovementAuxToMovement(m));
+        }
+        foreach (StatAux s in gymLeaderStatsAux.stats)
+        {
+            Debug.Log("Stats de" + s.id);
+            db.GetStats().add(s.id,StatAuxToStat(s));
         }
     }
 
@@ -156,6 +179,10 @@ public class JSONReader : MonoBehaviour
     }
     Movement MovementAuxToMovement(MovementAux m)
     {
-        return new Movement(m.pokemon, m.attack);
+        return new Movement(m.attack);
+    }
+    Stat StatAuxToStat(StatAux s)
+    {
+        return new Stat(s.hp, s.phyDamage, s.phyDefense, s.speDamage, s.speDefense, s.speed);
     }
 }

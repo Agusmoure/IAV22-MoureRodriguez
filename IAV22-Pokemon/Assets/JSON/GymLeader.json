@@ -28,5 +28,16 @@
             "pokemon":"LS2",
             "attack":"MT0101"
         }
+    ],
+    "stats":[
+        {
+            "id":"LS1",
+            "hp":394,
+            "phyDamage":251,
+            "phyDefense":350,
+            "speDamage":240,
+            "speDefense":394,
+            "speed":251
+        }
     ]
 }
