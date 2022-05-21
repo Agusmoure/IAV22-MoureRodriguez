@@ -7,6 +7,7 @@ public class JSONReader : MonoBehaviour
     public TextAsset PokemonFile;
     public TextAsset AttackFile;
     public TextAsset GymLeader;
+    public TextAsset rival;
     DBComponent db;
     #region AuxClass
     //Para poder emular una base de datos relacional y poder leer de JSON de manera sencilla se crean una serie de clases auxiliares
@@ -17,6 +18,8 @@ public class JSONReader : MonoBehaviour
         public string name;
         public string type1;
         public string type2;
+        public string frontSprite;
+        public string backSprite;
     }
     [System.Serializable]
     class PokemonsAux
@@ -54,6 +57,7 @@ public class JSONReader : MonoBehaviour
         public string id;
         public string nickName;
         public int natDexNumber;
+        public int level;
 
     }
     [System.Serializable]
@@ -93,17 +97,25 @@ public class JSONReader : MonoBehaviour
     AttacksAux attacksAux;
     PokemonsAux pokemonsAux;
     TeamPokemonAux gymTPokemonAux;
+    TeamPokemonAux rivalPokemonAux;
     MovementSetAux gymMSetAux;
+    MovementSetAux rivalMSetAux;
     PokemonsStatsAux gymLeaderStatsAux;
+    PokemonsStatsAux rivalStatsAux;
     // Start is called before the first frame update
     void Start()
     {
         db = transform.GetComponent<DBComponent>();
         pokemonsAux = JsonUtility.FromJson<PokemonsAux>(PokemonFile.text);
         attacksAux = JsonUtility.FromJson<AttacksAux>(AttackFile.text);
+        //gymleader
         gymTPokemonAux = JsonUtility.FromJson<TeamPokemonAux>(GymLeader.text);
         gymMSetAux = JsonUtility.FromJson<MovementSetAux>(GymLeader.text);
         gymLeaderStatsAux = JsonUtility.FromJson<PokemonsStatsAux>(GymLeader.text);
+        //rival
+        rivalPokemonAux = JsonUtility.FromJson<TeamPokemonAux>(rival.text);
+        rivalMSetAux = JsonUtility.FromJson<MovementSetAux>(rival.text);
+        rivalStatsAux = JsonUtility.FromJson<PokemonsStatsAux>(rival.text);
         foreach (PokemonDBAux pokemon in pokemonsAux.pokemons)
         {
             db.GetPokemons().add(PokemonAuxtoPokemon(pokemon));
@@ -112,6 +124,7 @@ public class JSONReader : MonoBehaviour
         {
             db.GetAttacks().add(AttackAuxToAttack(a));
         }
+        //GymLeader
         foreach (PokemonInTeamAux p in gymTPokemonAux.pokemons)
         {
             db.GetGymLeaderTeam().add(PokemonITAuxToPokemonIT(p));
@@ -122,8 +135,20 @@ public class JSONReader : MonoBehaviour
         }
         foreach (StatAux s in gymLeaderStatsAux.stats)
         {
-            Debug.Log("Stats de" + s.id);
             db.GetStats().add(s.id,StatAuxToStat(s));
+        }
+        //rival
+        foreach (PokemonInTeamAux p in rivalPokemonAux.pokemons)
+        {
+            db.GetRivalTeam().add(PokemonITAuxToPokemonIT(p));
+        }
+        foreach (MovementAux m in rivalMSetAux.moves)
+        {
+            db.GetMovements().add(m.pokemon, MovementAuxToMovement(m));
+        }
+        foreach (StatAux s in rivalStatsAux.stats)
+        {
+            db.GetStats().add(s.id, StatAuxToStat(s));
         }
     }
 
@@ -136,7 +161,7 @@ public class JSONReader : MonoBehaviour
     PokemonDB PokemonAuxtoPokemon(PokemonDBAux p)
     {
         PokemonType t1 = getTypeFromString(p.type1), t2 = getTypeFromString(p.type2);
-        return new PokemonDB(p.natDexNumber, p.name, t1, t2);
+        return new PokemonDB(p.natDexNumber, p.name, t1, t2,p.frontSprite,p.backSprite);
 
     }
     Attack AttackAuxToAttack(AttackAux a)
@@ -175,7 +200,7 @@ public class JSONReader : MonoBehaviour
     }
     PokemonInTeam PokemonITAuxToPokemonIT(PokemonInTeamAux p)
     {
-        return new PokemonInTeam(p.id, db.GetPokemons().getPokemons()[p.natDexNumber], p.nickName);
+        return new PokemonInTeam(p.id, db.GetPokemons().getPokemons()[p.natDexNumber],p.level ,p.nickName);
     }
     Movement MovementAuxToMovement(MovementAux m)
     {

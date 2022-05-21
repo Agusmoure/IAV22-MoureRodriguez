@@ -7,45 +7,36 @@ public class MovesHud : MonoBehaviour
 {
     List<Transform> movesHUD;
     List<Attack> moves;
+    Attack emptyAttack;
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
+        emptyAttack = new Attack("Demo", "", PokemonType.None, 0, StatsType.None, 0);
         movesHUD = new List<Transform>();
         moves = new List<Attack>();
         for (int i = 0; i < gameObject.transform.childCount; i++)
             movesHUD.Add(gameObject.transform.GetChild(i));
-        string[] s = { "Psíquico", "Psicocorte", "Placaje" };
-        SetMovesNames(s);
+        transform.parent.gameObject.SetActive(false);
     }
-    void SetMovesNames(string[] namesStart)
+    void Start()
     {
-        string[] names = new string[4];
-        if (namesStart.Length < 4)
-        {
-            namesStart.CopyTo(names, 0);
-            for (int j = namesStart.Length; j < 4; j++)
-            {
-                names[j] = "";
-            }
-        }
-        else
-            names = namesStart;
-        int i = 0;
-        foreach (Transform t in movesHUD)
-        {
-            t.GetComponent<Text>().text = names[i++];
-        }
+
     }
     public void SetMoves(List<Attack> attacks)
     {
-        string[] names = new string[4];
-        int i = 0;
+        moves.Clear();
         foreach (Attack a in attacks)
         {
-            names[i] = a.name;
+            moves.Add(a);
+        }
+        for (int j = moves.Count; j < 4; j++)
+            moves.Add(emptyAttack);
+        int i = 0;
+        foreach (Transform t in movesHUD)
+        {
+            t.GetComponent<Moves>().ChangeAttack(moves[i]);
             i++;
         }
-        SetMovesNames(names);
     }
     public List<Attack> GetMoves()
     {

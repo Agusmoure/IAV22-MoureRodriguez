@@ -1,0 +1,36 @@
+{
+    "pokemons":[
+        {
+            "natDexNumber":197,
+            "name":"Umbreon",
+            "type1":"Siniestro",
+            "type2":"None",
+            "frontSprite":"Sprites/umbreonFront",
+            "backSprite":"Sprites/umbreonBack"
+        },
+        {
+            "natDexNumber":248,
+            "name":"Tyranitar",
+            "type1":"Roca",
+            "type2":"Siniestro",
+            "frontSprite":"Sprites/tyranitarFront",
+            "backSprite":"Sprites/tyranitarBack"
+        },
+        {
+            "natDexNumber":196,
+            "name":"Espeon",
+            "type1":"Psiquico",
+            "type2":"None",
+            "frontSprite":"Sprites/espeonFront",
+            "backSprite":"Sprites/espeonBack"
+        },
+        {
+            "natDexNumber":766,
+            "name":"Passimian",
+            "type1":"Lucha",
+            "type2":"None",
+            "frontSprite":"Sprites/umbreonFront",
+            "backSprite":"Sprites/umbreonBack"
+        }
+    ]
+}

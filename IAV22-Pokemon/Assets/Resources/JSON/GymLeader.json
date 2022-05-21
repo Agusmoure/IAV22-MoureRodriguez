@@ -3,12 +3,14 @@
         {
             "natDexNumber":197,
             "nickName":"Maia",
-            "id":"LS1"
+            "id":"LS1",
+            "level":25
         },
         {
             "natDexNumber":248,
             "nickName":"Rod",
-            "id":"LS2"
+            "id":"LS2",
+            "level":50
         }
     ],
     "moves":[
@@ -32,6 +34,15 @@
     "stats":[
         {
             "id":"LS1",
+            "hp":394,
+            "phyDamage":251,
+            "phyDefense":350,
+            "speDamage":240,
+            "speDefense":394,
+            "speed":251
+        },
+        {
+            "id":"LS2",
             "hp":394,
             "phyDamage":251,
             "phyDefense":350,

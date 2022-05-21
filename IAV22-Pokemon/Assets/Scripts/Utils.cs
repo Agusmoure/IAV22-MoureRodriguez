@@ -7,6 +7,8 @@ public enum StatsType { Fisico, Especial, None }
 [System.Serializable]
 public struct PokemonDB
 {
+    Sprite _frontSprite;
+    Sprite _backSprite;
     int _natDexNumber;
     string _name;
     PokemonType _type1;
@@ -31,12 +33,25 @@ public struct PokemonDB
         get { return _type2; }
         set { _type2 = value; }
     }
-    public PokemonDB(int nD, string na, PokemonType t1, PokemonType t2)
+    public Sprite frontSprite
+    {
+        get { return _frontSprite; }
+        set { _frontSprite = value; }
+    }
+    public Sprite backSprite
+    {
+        get { return _backSprite; }
+        set { _backSprite = value; }
+    }
+    public PokemonDB(int nD, string na, PokemonType t1, PokemonType t2,string routeFS,string routeBS)
     {
         _natDexNumber = nD;
         _name = na;
         _type1 = t1;
         _type2 = t2;
+        _frontSprite = Resources.Load<Sprite>(routeFS);
+        _backSprite = Resources.Load<Sprite>(routeBS);
+
     }
 }
 [System.Serializable]
@@ -203,6 +218,7 @@ public struct PokemonInTeam
     string _id;
     string _nickName;
     int _pokemon;
+    int _lvl;
     public string id
     {
         get { return _id; }
@@ -218,11 +234,17 @@ public struct PokemonInTeam
         get { return _pokemon; }
         set { _pokemon = value; }
     }
-    public PokemonInTeam(string i, PokemonDB poke, string n = "")
+    public int lvl
+    {
+        get { return _lvl; }
+        set { _lvl = value; }
+    }
+    public PokemonInTeam(string i, PokemonDB poke, int l, string n = "")
     {
         _id = i;
         _pokemon = poke.natDexNumber;
         _nickName = n == "" ? poke.name : n;
+        _lvl = l;
     }
 }
 [System.Serializable]
