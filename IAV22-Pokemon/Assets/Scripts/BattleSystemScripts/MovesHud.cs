@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class MovesHud : MonoBehaviour
 {
+    [SerializeField] GameObject action;
+    [SerializeField] GameObject dialogText;
     List<Transform> movesHUD;
     List<Attack> moves;
     Attack emptyAttack;
@@ -42,5 +44,10 @@ public class MovesHud : MonoBehaviour
     {
         return moves;
     }
-
+    public void DoAttack()
+    {
+        dialogText.SetActive(true);
+        action.SetActive(true);
+        transform.parent.gameObject.SetActive(false);
+    }
 }

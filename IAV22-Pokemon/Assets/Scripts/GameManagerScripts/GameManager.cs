@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     [SerializeField] Player player;
     [SerializeField] GymLeader gymLeader;
+    [SerializeField] Battle battle;
     DBComponent db;
     [SerializeField] string firstRivalPokemon = "R1";
     [SerializeField] string firstGymLeaderPokemon = "LS2";
@@ -48,5 +49,10 @@ public class GameManager : MonoBehaviour
     public GymLeader GetGymLeader()
     {
         return gymLeader;
+    }
+    public void ProcessTurn(Decision d)
+    {
+        Debug.Log(battle);
+        battle.ProcessTurn(d);
     }
 }

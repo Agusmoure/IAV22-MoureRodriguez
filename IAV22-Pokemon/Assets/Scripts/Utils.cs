@@ -43,7 +43,7 @@ public struct PokemonDB
         get { return _backSprite; }
         set { _backSprite = value; }
     }
-    public PokemonDB(int nD, string na, PokemonType t1, PokemonType t2,string routeFS,string routeBS)
+    public PokemonDB(int nD, string na, PokemonType t1, PokemonType t2, string routeFS, string routeBS)
     {
         _natDexNumber = nD;
         _name = na;
@@ -185,7 +185,7 @@ public struct Stat
         get { return _speed; }
         set { _speed = value; }
     }
-    public Stat(int h,int pDa,int pDe,int sDa,int sDe,int s)
+    public Stat(int h, int pDa, int pDe, int sDa, int sDe, int s)
     {
         _hp = h;
         _currHp = h;
@@ -204,9 +204,9 @@ public class PokemonsStats
     {
         stats = new Dictionary<string, Stat>();
     }
-    public void add(string id,Stat m)
+    public void add(string id, Stat m)
     {
-        stats[id]=m;
+        stats[id] = m;
     }
     public Dictionary<string, Stat> GetStats() { return stats; }
 }
@@ -280,7 +280,7 @@ public struct Movement
         get { return _attack; }
         set { _attack = value; }
     }
-    public Movement(/*string p,*/ string a,int pp)
+    public Movement(/*string p,*/ string a, int pp)
     {
         // _pokemon = p;
         _attack = a;
@@ -321,7 +321,7 @@ public class Relation
         get { return _power; }
         set { _power = value; }
     }
-    public Relation(PokemonType pt,float pow)
+    public Relation(PokemonType pt, float pow)
     {
         _power = pow;
         _type = pt;
@@ -333,7 +333,7 @@ public class Relations
     Dictionary<PokemonType, Dictionary<PokemonType, float>> relations;
     public Relations()
     {
-        relations=new Dictionary<PokemonType, Dictionary<PokemonType, float>>();
+        relations = new Dictionary<PokemonType, Dictionary<PokemonType, float>>();
     }
     public void add(PokemonType id, Relation m)
     {
@@ -341,10 +341,62 @@ public class Relations
         {
             relations[id] = new Dictionary<PokemonType, float>();
         }
-        relations[id].Add(m.type,m.power);
+        relations[id].Add(m.type, m.power);
     }
-   public Dictionary<PokemonType, Dictionary<PokemonType, float>> GetRelations()
+    public Dictionary<PokemonType, Dictionary<PokemonType, float>> GetRelations()
     {
         return relations;
+    }
+}
+[System.Serializable]
+public struct Damage
+{
+    int _damage;
+    StatsType _type;
+    public int damage
+    {
+        get { return _damage; }
+        set { _damage = value; }
+    }
+    public StatsType type
+    {
+        get { return _type; }
+        set { _type = value; }
+    }
+}
+[System.Serializable]
+public class Decision
+{
+    bool _change;
+    string _newPokId;
+    Damage _damage;
+    public Damage damage
+    {
+        get { return _damage; }
+        set { _damage = value; }
+    }
+    public bool change
+    {
+        get { return _change; }
+        set { _change = value; }
+    }
+    public string newPokemonID
+    {
+        get { return _newPokId; }
+        set { _newPokId = value; }
+    }
+    public Decision(string nID)
+    {
+        _change = true;
+        _newPokId = nID;
+        _damage.type= StatsType.None;
+        _damage.damage = 0;
+    }
+    public Decision(StatsType t, int d)
+    {
+        _change = false;
+        _newPokId = "";
+        _damage.type = t;
+        _damage.damage = d;
     }
 }
