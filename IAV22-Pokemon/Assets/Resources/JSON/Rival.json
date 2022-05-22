@@ -16,30 +16,47 @@
     "moves":[
         {
             "pokemon":"R1",
-            "attack":"MT0100"
+            "attack":"MT0029"
         },
         {
             "pokemon":"R1",
-            "attack":"MT0097"
+            "attack":"MT0103"
+        },
+        
+        {
+            "pokemon":"R1",
+            "attack":"MT0106"
+        },      
+        {
+            "pokemon":"R1",
+            "attack":"MT0030"
         },
         {
             "pokemon":"R2",
-            "attack":"MT0095"
+            "attack":"MT0104"
         },
         {
             "pokemon":"R2",
-            "attack":"MT0101"
+            "attack":"MT0105"
+        },
+        {
+            "pokemon":"R2",
+            "attack":"MT0001"
+        },
+        {
+            "pokemon":"R2",
+            "attack":"MO0001"
         }
     ],
     "stats":[
         {
             "id":"R1",
-            "hp":394,
+            "hp":334,
             "phyDamage":251,
-            "phyDefense":350,
-            "speDamage":240,
-            "speDefense":394,
-            "speed":251
+            "phyDefense":240,
+            "speDamage":394,
+            "speDefense":317,
+            "speed":350
         },
         {
             "id":"R2",

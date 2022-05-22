@@ -33,10 +33,10 @@ public class Player : MonoBehaviour
         battleHud.SetData(pokemon.nickName, pokemon.lvl, actualStats.currhp, actualStats.hp);
         spritePlayer.sprite = actualPokemon.backSprite;
         //Movimientos actuales
-        List<Attack> atc = new List<Attack>();
+        List<Movement> atc = new List<Movement>();
         foreach(Movement m in db.GetMovements().GetMoves()[newPokemon])
         {
-            atc.Add(db.GetAttacks().getAttacks()[m.attack]);
+            atc.Add(m);
         }
         movesHud.SetMoves(atc);
         PokemonChanged();
@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
     public void ReceiveDamage(Damage d)
     {
         //Segun el tipo de daño: daño/defensaTipo
+        Debug.Log("PLAYER RECEIVEDAMAGE");
         actualStats.currhp -= d.type == StatsType.Fisico ? d.damage / actualStats.phyDefense : d.damage / actualStats.speDefense;
         if (actualStats.currhp < 0) actualStats.currhp = 0;
         battleHud.UpdateLive(actualStats.currhp);

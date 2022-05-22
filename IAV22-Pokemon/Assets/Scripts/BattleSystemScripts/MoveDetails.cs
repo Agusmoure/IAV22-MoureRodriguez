@@ -10,7 +10,12 @@ public class MoveDetails : MonoBehaviour
     public void SetDetails(Movement m)
     {
         Attack a = GameManager.instance.GetDB().GetAttacks().getAttacks()[m.attack];
-        pp.text = m.currpp+"/"+a.pp;
+        pp.text ="PP "+ m.currpp+"/"+a.pp;
         type.text = a.type.ToString();
+    }
+    public void Clear()
+    {
+        pp.text = "PP /";
+        type.text = "None";
     }
 }

@@ -52,7 +52,6 @@ public class GameManager : MonoBehaviour
     }
     public void ProcessTurn(Decision d)
     {
-        Debug.Log(battle);
         battle.ProcessTurn(d);
     }
 }

@@ -17,20 +17,100 @@
             "pp":20
        },
        {
-        "id":"MT0095",
-        "name":"Alarido",
-        "type":"Siniestro",
-        "damage":55,
-        "damageType":"Especial",
-        "pp":15
-   },
-   {
-    "id":"MT0101",
-    "name":"Triturar",
-    "type":"Siniestro",
-    "damage":70,
-    "damageType":"Fisico",
-    "pp":15
-}
+            "id":"MT0095",
+            "name":"Alarido",
+            "type":"Siniestro",
+            "damage":55,
+            "damageType":"Especial",
+            "pp":15
+        },
+        {
+            "id":"MT0101",
+            "name":"Triturar",
+            "type":"Siniestro",
+            "damage":70,
+            "damageType":"Fisico",
+            "pp":15
+        },
+        {
+            "id":"MT0102",
+            "name":"Tumba rocas",
+            "type":"Roca",
+            "damage":60,
+            "damageType":"Fisico",
+            "pp":25
+        },
+        {
+            "id":"MT0048",
+            "name":"Avalancha",
+            "type":"Roca",
+            "damage":75,
+            "damageType":"Fisico",
+            "pp":10
+        },
+        {
+            "id":"MT0029",
+            "name":"Psiquico",
+            "type":"Psiquico",
+            "damage":90,
+            "damageType":"Especial",
+            "pp":10
+        },
+        {
+            "id":"MT0103",
+            "name":"Psicocorte",
+            "type":"Psiquico",
+            "damage":70,
+            "damageType":"Fisico",
+            "pp":20
+        },
+        {
+            "id":"MT0104",
+            "name":"Golpe karate",
+            "type":"Lucha",
+            "damage":50,
+            "damageType":"Fisico",
+            "pp":20
+        },
+        {
+            "id":"MT0105",
+            "name":"Tajo Cruzado",
+            "type":"Lucha",
+            "damage":100,
+            "damageType":"Fisico",
+            "pp":10
+        },
+        {
+            "id":"MO0001",
+            "name":"Corte",
+            "type":"Normal",
+            "damage":50,
+            "damageType":"Fisico",
+            "pp":30
+        },
+        {
+            "id":"MT0001",
+            "name":"Megapunio",
+            "type":"Normal",
+            "damage":80,
+            "damageType":"Fisico",
+            "pp":20
+        },
+        {
+            "id":"MT0106",
+            "name":"Araniazo",
+            "type":"Normal",
+            "damage":40,
+            "damageType":"Fisico",
+            "pp":40
+        },
+        {
+            "id":"MT0030",
+            "name":"Bola sombra",
+            "type":"Fantasma",
+            "damage":80,
+            "damageType":"Especial",
+            "pp":20
+        }
     ]
 }

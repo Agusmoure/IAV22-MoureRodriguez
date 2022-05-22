@@ -7,15 +7,16 @@ public class MovesHud : MonoBehaviour
 {
     [SerializeField] GameObject action;
     [SerializeField] GameObject dialogText;
+    [SerializeField] MoveDetails details;
     List<Transform> movesHUD;
-    List<Attack> moves;
-    Attack emptyAttack;
+    List<Movement> moves;
+    Movement emptyAttack;
     // Start is called before the first frame update
     private void Awake()
     {
-        emptyAttack = new Attack("Demo", "", PokemonType.None, 0, StatsType.None, 0);
+        emptyAttack = new Movement("Demo", 0);
         movesHUD = new List<Transform>();
-        moves = new List<Attack>();
+        moves = new List<Movement>();
         for (int i = 0; i < gameObject.transform.childCount; i++)
             movesHUD.Add(gameObject.transform.GetChild(i));
         transform.parent.gameObject.SetActive(false);
@@ -24,12 +25,12 @@ public class MovesHud : MonoBehaviour
     {
 
     }
-    public void SetMoves(List<Attack> attacks)
+    public void SetMoves(List<Movement> attacks)
     {
         moves.Clear();
-        foreach (Attack a in attacks)
+        foreach (Movement m in attacks)
         {
-            moves.Add(a);
+            moves.Add(m);
         }
         for (int j = moves.Count; j < 4; j++)
             moves.Add(emptyAttack);
@@ -40,7 +41,7 @@ public class MovesHud : MonoBehaviour
             i++;
         }
     }
-    public List<Attack> GetMoves()
+    public List<Movement> GetMoves()
     {
         return moves;
     }
@@ -49,5 +50,9 @@ public class MovesHud : MonoBehaviour
         dialogText.SetActive(true);
         action.SetActive(true);
         transform.parent.gameObject.SetActive(false);
+    }
+    public MoveDetails GetMoveDetails()
+    {
+        return details;
     }
 }

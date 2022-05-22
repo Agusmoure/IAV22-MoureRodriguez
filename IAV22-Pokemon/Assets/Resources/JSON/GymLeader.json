@@ -23,12 +23,28 @@
             "attack":"MT0097"
         },
         {
+            "pokemon":"LS1",
+            "attack":"MT0106"
+        },
+        {
+            "pokemon":"LS1",
+            "attack":"MT0030"
+        },
+        {
             "pokemon":"LS2",
             "attack":"MT0095"
         },
         {
             "pokemon":"LS2",
             "attack":"MT0101"
+        },
+        {
+            "pokemon":"LS2",
+            "attack":"MT0102"
+        },
+        {
+            "pokemon":"LS2",
+            "attack":"MT0048"
         }
     ],
     "stats":[
@@ -43,12 +59,12 @@
         },
         {
             "id":"LS2",
-            "hp":394,
-            "phyDamage":251,
+            "hp":404,
+            "phyDamage":403,
             "phyDefense":350,
-            "speDamage":240,
-            "speDefense":394,
-            "speed":251
+            "speDamage":317,
+            "speDefense":328,
+            "speed":243
         }
     ]
 }

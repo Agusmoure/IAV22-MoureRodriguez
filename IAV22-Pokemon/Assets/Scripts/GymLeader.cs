@@ -38,7 +38,7 @@ public class GymLeader : MonoBehaviour
         actualStats.currhp -= d.type == StatsType.Fisico ? d.damage / actualStats.phyDefense : d.damage / actualStats.speDefense;
         if (actualStats.currhp < 0) actualStats.currhp = 0;
         battleHud.UpdateLive(actualStats.currhp);
-        Debug.Log(idActualPokemon + "CHP: " + actualStats.currhp);
+        Debug.Log("GYM RECEIVA DAMAGE");
 
     }
     public PokemonDB GetPokemonActual()
@@ -50,12 +50,11 @@ public class GymLeader : MonoBehaviour
     {
         Decision d;
         //Determina cual es el pokemon menos débil frente al rival actual
-        string bestPokemon = BestPokemon(GameManager.instance.GetPlayer().GetPokemonActual(), 99, 0, GameManager.instance.GetDB().GetGymLeaderTeam().GetPokemons());
+        string bestPokemon = BestPokemon(GameManager.instance.GetPlayer().GetPokemonActual(), GameManager.instance.GetDB().GetGymLeaderTeam().GetPokemons());
         //Si es el mejor pokemon para enfrentarse al rival ataca, sino cambia de pokemon
         if (idActualPokemon == bestPokemon)
         {
             Movement bM = BestMovement(GameManager.instance.GetPlayer().GetPokemonActual());
-            Debug.Log("Sen " + CalculateDamage(GameManager.instance.GetPlayer().GetPokemonActual(), bM));
             bM.currpp--;
             d = new Decision(GameManager.instance.GetDB().GetAttacks().getAttacks()[bM.attack].damageType, CalculateDamage(GameManager.instance.GetPlayer().GetPokemonActual(), bM));
         }
@@ -66,29 +65,35 @@ public class GymLeader : MonoBehaviour
         }
         return d;
     }
-    string BestPokemon(PokemonDB rival, float better, float actual, Dictionary<string, PokemonInTeam> pokemons)
+    string BestPokemon(PokemonDB rival, Dictionary<string, PokemonInTeam> pokemons)
     {
+        float best = 99, actual = 99;
         Relations rels = GameManager.instance.GetDB().GetRelations();
         string idBetter = idActualPokemon;
+        //Comprobamos entre todos los pokemons del equipo cual es el menos débil
         foreach (PokemonInTeam pok in pokemons.Values)
         {
             if (GameManager.instance.GetDB().GetStats().GetStats()[pok.id].currhp > 0)
             {
                 PokemonDB pokemon = GameManager.instance.GetDB().GetPokemons().getPokemons()[pok.pokemon];
                 actual = rels.GetRelations()[rival.type1][pokemon.type1];
+                Debug.Log("A" + actual + " B" + best + " RT1-->" + rival.type1.ToString());
+                Debug.Log("A" + actual + " B" + best + " PT1-->" + pokemon.type1.ToString());
+                if (rival.type2 != PokemonType.None)
+                    actual *= rels.GetRelations()[rival.type2][pokemon.type1];
                 if (pokemon.type2 != PokemonType.None)
-                    actual *= rels.GetRelations()[rival.type1][pokemon.type2];
-                if (actual < better && rival.type2 != PokemonType.None)
                 {
-                    actual += rels.GetRelations()[rival.type2][pokemon.type1];        
-                if (pokemon.type2 != PokemonType.None)
-                        actual*= rels.GetRelations()[rival.type2][pokemon.type2];
+                    Debug.Log("A" + actual + " B" + best + " RT2-->" + rival.type2.ToString());
+                    actual += rels.GetRelations()[rival.type1][pokemon.type2];
+                    if (rival.type2 != PokemonType.None)
+                        Debug.Log("A" + actual + " B" + best + " PT2-->" + pokemon.type2.ToString());
+                    actual *= rels.GetRelations()[rival.type2][pokemon.type2];
                 }
-                if (actual < better)
+                if (actual < best || (actual == best && pok.id == idActualPokemon))
                 {
 
                     idBetter = pok.id;
-                    better = actual;
+                    best = actual;
                 }
 
             }
@@ -141,7 +146,7 @@ public class GymLeader : MonoBehaviour
     }
     public void DieCurrentPokemon()
     {
-        string aux = BestPokemon(GameManager.instance.GetPlayer().GetPokemonActual(), 99, 0, GameManager.instance.GetDB().GetGymLeaderTeam().GetPokemons());
+        string aux = BestPokemon(GameManager.instance.GetPlayer().GetPokemonActual(), GameManager.instance.GetDB().GetGymLeaderTeam().GetPokemons());
         if (aux == idActualPokemon)
         {
             Application.Quit();

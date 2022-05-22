@@ -37,7 +37,6 @@ public class TeamManager : MonoBehaviour
             teamPokemon.Add(pEmpty);
         }
         int j = 0;
-        Debug.Log(pokemonsUI);
         foreach(PokemonChange pC in pokemonsUI)
         {
             pC.SetInfo(teamPokemon[j++]);
