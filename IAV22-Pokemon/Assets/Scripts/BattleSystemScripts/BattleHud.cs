@@ -8,17 +8,16 @@ public class BattleHud : MonoBehaviour
     [SerializeField] Text pName;
     [SerializeField] Text lvl;
     [SerializeField] HPBar hpBar;
-    int maxValue = 10000;
-    int actualValue = 10000;
-    int lv;
+    int maxLife;
     public void SetData(string n,int l,int actualLive,int maxValue)
     {
         pName.text=n;
         lvl.text = "Lvl" + l;
         hpBar.SetHealth((float)actualLive / (float)maxValue);
+        maxLife = maxValue;
     }
-     void Update()
+    public void UpdateLive(float actualLive)
     {
-        //SetData("", lv++, Mathf.Abs(--actualValue%maxValue), maxValue);
+        hpBar.SetHealth(actualLive / (float)maxLife);
     }
 }

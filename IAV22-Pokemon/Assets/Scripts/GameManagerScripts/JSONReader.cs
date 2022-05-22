@@ -8,6 +8,7 @@ public class JSONReader : MonoBehaviour
     public TextAsset AttackFile;
     public TextAsset GymLeader;
     public TextAsset rival;
+    public TextAsset relations;
     DBComponent db;
     #region AuxClass
     //Para poder emular una base de datos relacional y poder leer de JSON de manera sencilla se crean una serie de clases auxiliares
@@ -93,6 +94,22 @@ public class JSONReader : MonoBehaviour
     {
         public StatAux[] stats;
     }
+    [System.Serializable]
+    class RelationAux
+    {
+        public string type;
+        public float power;
+    }
+    [System.Serializable]
+    class RelationsAux
+    {
+        public string type;
+        public RelationAux[]relation;
+    }
+    class RelationsAuxArray
+    {
+       public RelationsAux[] relations;
+    }
     #endregion
     AttacksAux attacksAux;
     PokemonsAux pokemonsAux;
@@ -102,6 +119,7 @@ public class JSONReader : MonoBehaviour
     MovementSetAux rivalMSetAux;
     PokemonsStatsAux gymLeaderStatsAux;
     PokemonsStatsAux rivalStatsAux;
+    RelationsAuxArray relationsAux;
     // Start is called before the first frame update
     void Start()
     {
@@ -116,6 +134,7 @@ public class JSONReader : MonoBehaviour
         rivalPokemonAux = JsonUtility.FromJson<TeamPokemonAux>(rival.text);
         rivalMSetAux = JsonUtility.FromJson<MovementSetAux>(rival.text);
         rivalStatsAux = JsonUtility.FromJson<PokemonsStatsAux>(rival.text);
+        relationsAux = JsonUtility.FromJson<RelationsAuxArray>(relations.text);
         foreach (PokemonDBAux pokemon in pokemonsAux.pokemons)
         {
             db.GetPokemons().add(PokemonAuxtoPokemon(pokemon));
@@ -131,7 +150,7 @@ public class JSONReader : MonoBehaviour
         }
         foreach (MovementAux m in gymMSetAux.moves)
         {
-            db.GetMovements().add(m.pokemon,MovementAuxToMovement(m));
+            db.GetMovements().add(m.pokemon,MovementAuxToMovement(m,db.GetAttacks().getAttacks()[m.attack].pp));
         }
         foreach (StatAux s in gymLeaderStatsAux.stats)
         {
@@ -144,20 +163,30 @@ public class JSONReader : MonoBehaviour
         }
         foreach (MovementAux m in rivalMSetAux.moves)
         {
-            db.GetMovements().add(m.pokemon, MovementAuxToMovement(m));
+            db.GetMovements().add(m.pokemon, MovementAuxToMovement(m, db.GetAttacks().getAttacks()[m.attack].pp));
         }
         foreach (StatAux s in rivalStatsAux.stats)
         {
             db.GetStats().add(s.id, StatAuxToStat(s));
         }
-    }
+        //cargar relaciones
 
+        foreach(RelationsAux rlsAux in relationsAux.relations)
+        {
+            PokemonType typeKey = getTypeFromString(rlsAux.type);
+            foreach(RelationAux r in rlsAux.relation)
+            {
+                db.GetRelations().add(typeKey,RelationAuxToRelation(r));
+            }
+        }
+        GameManager.instance.GetPlayer().ChangePokemon(GameManager.instance.GetFirstRival());
+        GameManager.instance.GetGymLeader().ChangePokemon(GameManager.instance.GetFirstGymLeader());
+    }
     // Update is called once per frame
     void Update()
     {
 
     }
-
     PokemonDB PokemonAuxtoPokemon(PokemonDBAux p)
     {
         PokemonType t1 = getTypeFromString(p.type1), t2 = getTypeFromString(p.type2);
@@ -182,6 +211,10 @@ public class JSONReader : MonoBehaviour
                 return PokemonType.Lucha;
             case "psiquico":
                 return PokemonType.Psiquico;
+            case "fantasma":
+                return PokemonType.Fantasma;
+            case "normal":
+                return PokemonType.Normal;
             default:
                 return PokemonType.None;
         }
@@ -202,12 +235,16 @@ public class JSONReader : MonoBehaviour
     {
         return new PokemonInTeam(p.id, db.GetPokemons().getPokemons()[p.natDexNumber],p.level ,p.nickName);
     }
-    Movement MovementAuxToMovement(MovementAux m)
+    Movement MovementAuxToMovement(MovementAux m,int pp)
     {
-        return new Movement(m.attack);
+        return new Movement(m.attack,pp);
     }
     Stat StatAuxToStat(StatAux s)
     {
         return new Stat(s.hp, s.phyDamage, s.phyDefense, s.speDamage, s.speDefense, s.speed);
+    }
+    Relation RelationAuxToRelation(RelationAux r)
+    {
+        return new Relation(getTypeFromString(r.type), r.power);
     }
 }

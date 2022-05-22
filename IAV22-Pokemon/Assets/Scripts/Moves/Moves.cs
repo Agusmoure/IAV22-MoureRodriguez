@@ -26,5 +26,4 @@ public class Moves : MonoBehaviour
     {
         return _actualMovement;
     }
-
 }

@@ -10,6 +10,7 @@ public class DBComponent : MonoBehaviour
     TeamPokemon rival;
     MovementSet movements;
     PokemonsStats pokemonStats;
+    Relations relations;
     private void Awake()
     {
         pokemons = new Pokemons();
@@ -18,6 +19,7 @@ public class DBComponent : MonoBehaviour
         rival = new TeamPokemon();
         movements = new MovementSet();
         pokemonStats = new PokemonsStats();
+        relations = new Relations();
     }
     // Start is called before the first frame update
     void Start()
@@ -28,7 +30,16 @@ public class DBComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            foreach(KeyValuePair<PokemonType, Dictionary<PokemonType, float>> aux in relations.GetRelations() )
+            {
+                foreach (KeyValuePair<PokemonType, float> pair in aux.Value)
+                {
+                    Debug.Log(aux.Key.ToString() + "-" + pair.Key + "---->" + pair.Value);
+                }
+            }
+        }
     }
     public Pokemons GetPokemons()
     {
@@ -57,5 +68,9 @@ public class DBComponent : MonoBehaviour
     public PokemonsStats GetStats()
     {
         return pokemonStats;
+    }
+    public Relations GetRelations()
+    {
+        return relations;
     }
 }

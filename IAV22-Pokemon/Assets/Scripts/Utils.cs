@@ -78,7 +78,6 @@ public struct Attack
     int _damage;
     StatsType _damageType;
     int _pp;
-    int _currPp;
     public string id
     {
         get { return _id; }
@@ -109,11 +108,7 @@ public struct Attack
         get { return _pp; }
         set { _pp = value; }
     }
-    public int currpp
-    {
-        get { return _currPp; }
-        set { _currPp = value; }
-    }
+
 
     public Attack(string id_, string na, PokemonType ty, int dam, StatsType st, int ammount)
     {
@@ -123,7 +118,6 @@ public struct Attack
         _damage = dam;
         _damageType = st;
         _pp = ammount;
-        _currPp = ammount;
     }
 }
 [System.Serializable]
@@ -156,7 +150,11 @@ public struct Stat
         get { return _currHp; }
         set { _currHp = value; }
     }
-    public void SetCurrHp(int val) { currhp = val; }
+    public void SetCurrHp(int val)
+    {
+        _currHp = val;
+    }
+    public int GetCurrHP() { return _currHp; }
     public int hp
     {
         get { return _hp; }
@@ -271,15 +269,22 @@ public struct Movement
     //    get { return _pokemon; }
     //    set { _pokemon = value; }
     //}
+    int _currPp;
+    public int currpp
+    {
+        get { return _currPp; }
+        set { _currPp = value; }
+    }
     public string attack
     {
         get { return _attack; }
         set { _attack = value; }
     }
-    public Movement(/*string p,*/ string a)
+    public Movement(/*string p,*/ string a,int pp)
     {
         // _pokemon = p;
         _attack = a;
+        _currPp = pp;
     }
 }
 [System.Serializable]
@@ -299,4 +304,47 @@ public class MovementSet
         moves[id].Add(m);
     }
     public Dictionary<string, List<Movement>> GetMoves() { return moves; }
+}
+
+[System.Serializable]
+public class Relation
+{
+    PokemonType _type;
+    float _power;
+    public PokemonType type
+    {
+        get { return _type; }
+        set { _type = value; }
+    }
+    public float power
+    {
+        get { return _power; }
+        set { _power = value; }
+    }
+    public Relation(PokemonType pt,float pow)
+    {
+        _power = pow;
+        _type = pt;
+    }
+}
+[System.Serializable]
+public class Relations
+{
+    Dictionary<PokemonType, Dictionary<PokemonType, float>> relations;
+    public Relations()
+    {
+        relations=new Dictionary<PokemonType, Dictionary<PokemonType, float>>();
+    }
+    public void add(PokemonType id, Relation m)
+    {
+        if (!relations.ContainsKey(id))
+        {
+            relations[id] = new Dictionary<PokemonType, float>();
+        }
+        relations[id].Add(m.type,m.power);
+    }
+   public Dictionary<PokemonType, Dictionary<PokemonType, float>> GetRelations()
+    {
+        return relations;
+    }
 }

@@ -7,9 +7,10 @@ public class MoveDetails : MonoBehaviour
 {
     [SerializeField] Text pp;
     [SerializeField] Text type;
-    public void SetDetails(Attack a)
+    public void SetDetails(Movement m)
     {
-        pp.text = a.currpp+"/"+a.pp;
+        Attack a = GameManager.instance.GetDB().GetAttacks().getAttacks()[m.attack];
+        pp.text = m.currpp+"/"+a.pp;
         type.text = a.type.ToString();
     }
 }

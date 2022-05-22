@@ -8,12 +8,15 @@ public class TeamManager : MonoBehaviour
     [SerializeField] Player player;
     [SerializeField] GameObject action;
     [SerializeField] GameObject dialogText;
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         pokemonsUI = new List<PokemonChange>();
         for (int i = 0; i < transform.childCount; i++)
-            pokemonsUI.Add(transform.GetChild(i).transform.GetComponent<PokemonChange>());
+            pokemonsUI.Add(transform.GetChild(i).transform.GetComponent<PokemonChange>());        
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
     }
 
     // Update is called once per frame
@@ -34,6 +37,7 @@ public class TeamManager : MonoBehaviour
             teamPokemon.Add(pEmpty);
         }
         int j = 0;
+        Debug.Log(pokemonsUI);
         foreach(PokemonChange pC in pokemonsUI)
         {
             pC.SetInfo(teamPokemon[j++]);

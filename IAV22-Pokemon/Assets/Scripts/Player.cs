@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //ChangePokemon(GameManager.instance.GetFirstRival());
     }
 
     // Update is called once per frame
@@ -29,6 +30,7 @@ public class Player : MonoBehaviour
         idActualPokemon=newPokemon;
         actualPokemon = db.GetPokemons().getPokemons()[pokemon.pokemon];
         actualStats = db.GetStats().GetStats()[pokemon.id];
+        Debug.Log(pokemon.nickName+"CHP: "+actualStats.currhp);
         battleHud.SetData(pokemon.nickName, pokemon.lvl, actualStats.currhp, actualStats.hp);
         spritePlayer.sprite = actualPokemon.backSprite;
         //Movimientos actuales
@@ -38,5 +40,17 @@ public class Player : MonoBehaviour
             atc.Add(db.GetAttacks().getAttacks()[m.attack]);
         }
         movesHud.SetMoves(atc);
+    }
+    public void ReceiveDamage(int damage)
+    {
+        actualStats.currhp -= damage;
+        if (actualStats.currhp < 0) actualStats.currhp = 0;
+        battleHud.UpdateLive(actualStats.currhp);
+        Debug.Log(idActualPokemon + "CHP: " + actualStats.currhp);
+
+    }
+    public PokemonDB GetPokemonActual()
+    {
+        return actualPokemon;
     }
 }
