@@ -39,8 +39,8 @@ public class Moves : MonoBehaviour
     }
     public void ProcessTurn()
     {
-        GameManager.instance.ProcessTurn(DoMovement());
         transform.GetComponentInParent<MovesHud>().DoAttack();
+        GameManager.instance.ProcessTurn(DoMovement());
     }
     private void OnMouseOver()
     {

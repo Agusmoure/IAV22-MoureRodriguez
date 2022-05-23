@@ -13,7 +13,7 @@ public class PokemonChange : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.GetComponent<Button>().onClick.AddListener(ProcessTurn);
+
     }
 
     // Update is called once per frame
@@ -69,5 +69,13 @@ public class PokemonChange : MonoBehaviour
     public void ProcessTurn()
     {
         GameManager.instance.ProcessTurn(ChangePokemon());
+    }
+    public void ProcessDie()
+    {
+        if (ChangePokemon().newPokemonID != "")
+        {
+            GameManager.instance.GetPlayer().ChangePokemon(ChangePokemon().newPokemonID);
+            transform.GetComponentInParent<TeamManager>().PokemonChanged();
+        }
     }
 }

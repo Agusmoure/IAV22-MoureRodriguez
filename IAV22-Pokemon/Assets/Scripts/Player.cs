@@ -9,7 +9,9 @@ public class Player : MonoBehaviour
     [SerializeField] BattleHud battleHud;
     [SerializeField] MovesHud movesHud;
     [SerializeField] Image spritePlayer;
-    [SerializeField] TeamManager team;
+    [SerializeField] TeamManager teamCh;
+    [SerializeField] TeamManager teamDie;
+    [SerializeField] ActionSelector action;
     PokemonDB actualPokemon;
     string idActualPokemon;
     Stat actualStats;
@@ -66,10 +68,16 @@ public class Player : MonoBehaviour
 
     public void PokemonChanged()
     {
-        team.PokemonChanged();
+        teamCh.PokemonChanged();
     }
     public Stat GetActualStat()
     {
         return actualStats;
+    }
+    public void DieCurrentPokemon() {
+
+        Debug.Log("Die Player");
+        action.DiePokemon();
+        teamDie.ShowTeam();
     }
 }
