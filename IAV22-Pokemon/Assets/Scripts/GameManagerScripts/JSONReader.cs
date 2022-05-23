@@ -203,6 +203,8 @@ public class JSONReader : MonoBehaviour
     {
         switch (type.ToLower())
         {
+//
+
             case "siniestro":
                 return PokemonType.Siniestro;
             case "roca":
@@ -217,6 +219,28 @@ public class JSONReader : MonoBehaviour
                 return PokemonType.Normal;
             case "acero":
                 return PokemonType.Acero;
+            case "bicho":
+                return PokemonType.Bicho;
+            case "electrico":
+                return PokemonType.Electrico;
+            case "volador":
+                return PokemonType.Volador;
+            case "veneno":
+                return PokemonType.Veneno;
+            case "fuego":
+                return PokemonType.Fuego;
+            case "planta":
+                return PokemonType.Planta;
+            case "agua":
+                return PokemonType.Agua;
+            case "tierra":
+                return PokemonType.Tierra;
+            case "hada":
+                return PokemonType.Hada;
+            case "dragon":
+                return PokemonType.Dragon;
+            case "hielo":
+                return PokemonType.Hielo;
             default:
                 return PokemonType.None;
         }

@@ -42,7 +42,6 @@ public class GymLeader : MonoBehaviour
         actualStats.currhp -= d.mtype == StatsType.Physic ?(int)(power / actualStats.phyDefense ): (int)(power / actualStats.speDefense);
         if (actualStats.currhp < 0) actualStats.currhp = 0;
         battleHud.UpdateLive(actualStats.currhp);
-        Debug.Log("GYM RECEIVA DAMAGE");
 
     }
     public PokemonDB GetPokemonActual()
@@ -62,6 +61,7 @@ public class GymLeader : MonoBehaviour
             bM.currpp--;
             Attack attack = GameManager.instance.GetDB().GetAttacks().getAttacks()[bM.attack];
             d = new Decision(attack.damageType, attack.type,attack.damageType == StatsType.Physic ? (int)(attack.damage * actualStats.phyDamage) : (int)(attack.damage * actualStats.speDamage));
+            Debug.Log("EL ATAQUE UTILIZADO ES: " + attack.name);
         }
         else
         {
@@ -119,6 +119,7 @@ public class GymLeader : MonoBehaviour
                 }
             }
         }
+        Debug.Log("EL MEJOR MOVIMIENTO ES: " + db.GetAttacks().getAttacks()[moves[bestAttack].attack].name);
         //Hay un 18.75% de que no use el mejor ataque
         if (Random.Range(0, 101) > 25)
 

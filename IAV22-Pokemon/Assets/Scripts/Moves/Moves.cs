@@ -30,6 +30,7 @@ public class Moves : MonoBehaviour
     }
     public Decision DoMovement()
     {
+        _movement.currpp--;
         return new Decision(attack.damageType,attack.type,CalculateDamage(attack));
     }
     int CalculateDamage( Attack attack)

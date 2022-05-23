@@ -18,58 +18,75 @@ public class Battle : MonoBehaviour
                 return;
             }
             player.ChangePokemon(playerDecision.newPokemonID);
+
             if (gymLeaderDecision.change)
             {
-            Debug.Log("PLAYER Y GYM CAMBIAN");
                 gymLeader.ChangePokemon(gymLeaderDecision.newPokemonID);
             }
             else
             {
-            Debug.Log("PLAYER CAMBIA GYM ATACA");
-               player.ReceiveDamage(gymLeaderDecision.damage);
+                player.ReceiveDamage(gymLeaderDecision.damage);
+                Debug.Log("GYMLEADER EJECUTA ATAQUE");
                 if (GameManager.instance.GetDB().GetStats().GetStats()[player.GetIDActualPokemon()].currhp <= 0)
+                {
+                    Debug.Log("MUERE POKEMON DE PLAYER");
                     player.DieCurrentPokemon();
+                }
             }
         }
         else
         {
             if (gymLeaderDecision.change)
             {
-                Debug.Log("GYM CAMBIA PLAYER ATACA");
                 gymLeader.ChangePokemon(gymLeaderDecision.newPokemonID);
                 gymLeader.ReceiveDamage(playerDecision.damage);
                 if (GameManager.instance.GetDB().GetStats().GetStats()[gymLeader.GetIDActualPokemon()].currhp <= 0)
+                {
                     gymLeader.DieCurrentPokemon();
+                    Debug.Log("MUERE POKEMON DE GYMLEADER");
+                }
             }
             else
             {
                 if (GameManager.instance.GetDB().GetStats().GetStats()[player.GetIDActualPokemon()].speed < GameManager.instance.GetDB().GetStats().GetStats()[gymLeader.GetIDActualPokemon()].speed)
                 {
-                     Debug.Log("GYM ATACA PLAYER ATACA");
                     player.ReceiveDamage(gymLeaderDecision.damage);
                     //Gestionar la muerte del pokemon del jugador
                     if (GameManager.instance.GetDB().GetStats().GetStats()[player.GetIDActualPokemon()].currhp <= 0)
+                    {
                         player.DieCurrentPokemon();
+                    }
                     else
                     {
                         gymLeader.ReceiveDamage(playerDecision.damage);
+                        Debug.Log("GYMLEADER EJECUTA ATAQUE");
                         if (GameManager.instance.GetDB().GetStats().GetStats()[gymLeader.GetIDActualPokemon()].currhp <= 0)
+                        {
                             gymLeader.DieCurrentPokemon();
+                            Debug.Log("MUERE POKEMON DE GYMLEADER");
+                        }
                     }
                 }
                 else
                 {
-                     Debug.Log("PLAYER ATACA GYM ATACA");
+                    Debug.Log("PLAYER ATACA GYM ATACA");
                     gymLeader.ReceiveDamage(playerDecision.damage);
                     if (GameManager.instance.GetDB().GetStats().GetStats()[gymLeader.GetIDActualPokemon()].currhp <= 0)
+                    {
                         gymLeader.DieCurrentPokemon();
+                        Debug.Log("MUERE POKEMON DE GYMLEADER");
+
+                    }
                     else
                     {
                         player.ReceiveDamage(gymLeaderDecision.damage);
                         if (GameManager.instance.GetDB().GetStats().GetStats()[player.GetIDActualPokemon()].currhp <= 0)
+                        {
                             player.DieCurrentPokemon();
+
+                        }
                     }
-                    }
+                }
             }
         }
     }

@@ -17,6 +17,12 @@
             "nickName":"",
             "id":"LS3",
             "level":80
+        },
+        {
+            "natDexNumber":229,
+            "nickName":"",
+            "id":"LS4",
+            "level":60
         }
     ],
     "moves":[
@@ -54,7 +60,7 @@
         },
         {
             "pokemon":"LS3",
-            "attack":"MT0097"
+            "attack":"MT0107"
         },
         {
             "pokemon":"LS3",
@@ -66,6 +72,22 @@
         },
         {
             "pokemon":"LS3",
+            "attack":"MT0095"
+        },
+        {
+            "pokemon":"LS4",
+            "attack":"MT0108"
+        },
+        {
+            "pokemon":"LS4",
+            "attack":"MT0068"
+        },
+        {
+            "pokemon":"LS4",
+            "attack":"MT0038"
+        },
+        {
+            "pokemon":"LS4",
             "attack":"MT0095"
         }
     ],
@@ -90,12 +112,21 @@
         },
         {
             "id":"LS3",
-            "hp":404,
-            "phyDamage":403,
-            "phyDefense":350,
-            "speDamage":317,
-            "speDefense":328,
-            "speed":243
+            "hp":250,
+            "phyDamage":160,
+            "phyDefense":160,
+            "speDamage":140,
+            "speDefense":141,
+            "speed":180
+        },
+        {
+            "id":"LS4",
+            "hp":320,
+            "phyDamage":290,
+            "phyDefense":200,
+            "speDamage":340,
+            "speDefense":275,
+            "speed":300
         }
     ]
 }

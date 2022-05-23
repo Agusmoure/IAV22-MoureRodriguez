@@ -46,7 +46,6 @@ public class Player : MonoBehaviour
     public void ReceiveDamage(Damage d)
     {
         //Segun el tipo de daño: daño/defensaTipo
-        Debug.Log("PLAYER RECEIVEDAMAGE");
         Relations rels = GameManager.instance.GetDB().GetRelations();
         //Segun el tipo de daño: daño/defensaTipo
         float power = d.damage * rels.GetRelations()[d.ptype][actualPokemon.type1];
@@ -75,8 +74,6 @@ public class Player : MonoBehaviour
         return actualStats;
     }
     public void DieCurrentPokemon() {
-
-        Debug.Log("Die Player");
         action.DiePokemon();
         teamDie.ShowTeam();
     }

@@ -11,6 +11,12 @@
             "nickName":"",
             "id":"R2",
             "level":50
+        },
+        {
+            "natDexNumber":389,
+            "nickName":"",
+            "id":"R3",
+            "level":60
         }
     ],
     "moves":[
@@ -46,6 +52,22 @@
         {
             "pokemon":"R2",
             "attack":"MO0001"
+        },
+        {
+            "pokemon":"R3",
+            "attack":"MT0026"
+        },
+        {
+            "pokemon":"R3",
+            "attack":"MT0110"
+        },
+        {
+            "pokemon":"R3",
+            "attack":"MT0109"
+        },
+        {
+            "pokemon":"R3",
+            "attack":"MT0111"
         }
     ],
     "stats":[
@@ -66,6 +88,15 @@
             "speDamage":211,
             "speDefense":130,
             "speed":166
+        },
+        {
+            "id":"R3",
+            "hp":394,
+            "phyDamage":348,
+            "phyDefense":339,
+            "speDamage":273,
+            "speDefense":295,
+            "speed":232 
         }
     ]
 }

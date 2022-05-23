@@ -29,8 +29,12 @@ public class GameManager : MonoBehaviour
     void Start()
     {
     }
-
-   public  DBComponent GetDB()
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
+    }
+    public  DBComponent GetDB()
     {
         return db;
     }

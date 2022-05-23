@@ -56,7 +56,7 @@ public class PokemonChange : MonoBehaviour
 
     public Decision ChangePokemon()
     {
-        if (actualId != "dead" && actualId != "empty")
+        if (actualId != "dead" && actualId != "empty"&&actualId!=GameManager.instance.GetPlayer().GetIDActualPokemon())
         {
 
             return new Decision(actualId);

@@ -111,6 +111,78 @@
             "damage":80,
             "damageType":"Especial",
             "pp":20
+        },
+        {
+            "id":"MT0107",
+            "name":"Tajo umbrio",
+            "type":"Siniestro",
+            "damage":70,
+            "damageType":"Fisico",
+            "pp":20
+        },
+        {
+            "id":"MT0108",
+            "name":"Mordisco",
+            "type":"Siniestro",
+            "damage":60,
+            "damageType":"Fisico",
+            "pp":25
+        },
+        {
+            "id":"MT0038",
+            "name":"Llamarada",
+            "type":"Fuego",
+            "damage":110,
+            "damageType":"Especial",
+            "pp":5
+        },
+        {
+            "id":"MT0068",
+            "name":"Colmillo igneo",
+            "type":"Fuego",
+            "damage":65,
+            "damageType":"Fisico",
+            "pp":15
+        },
+        {
+            "id":"MT9999",
+            "name":"One SHoot",
+            "type":"Bicho",
+            "damage":9999999,
+            "damageType":"Especial",
+            "pp":5
+        },
+        {
+            "id":"MT0026",
+            "name":"Terremoto",
+            "type":"Tierra",
+            "damage":100,
+            "damageType":"Fisico",
+            "pp":10 
+        },
+        {
+            "id":"MT0109",
+            "name":"Bomba fango",
+            "type":"Tierra",
+            "damage":65,
+            "damageType":"Especial",
+            "pp":10
+        },
+        {
+            "id":"MT0110",  
+            "name":"Voto planta",
+            "type":"Planta",
+            "damage":80,
+            "damageType":"Especial",
+            "pp":10
+        },
+        {
+            "id":"MT0111",  
+            "name":"Mazazo",
+            "type":"Planta",
+            "damage":120,
+            "damageType":"Fisico",
+            "pp":15
         }
     ]
 }

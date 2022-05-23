@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PokemonType { None, Siniestro, Roca, Psiquico, Fantasma, Normal, Lucha,Acero }
+public enum PokemonType { None, Siniestro, Roca, Psiquico, Fantasma, Normal, Lucha, Acero, Fuego, Planta, Agua, Bicho, Veneno, Volador, Electrico, Tierra, Hada, Dragon,Hielo }
 public enum StatsType { Physic, Special, None }
 [System.Serializable]
 public struct PokemonDB
@@ -390,11 +390,11 @@ public class Decision
     {
         _change = true;
         _newPokId = nID;
-        _damage.mtype= StatsType.None;
+        _damage.mtype = StatsType.None;
         _damage.damage = 0;
         _damage.ptype = PokemonType.None;
     }
-    public Decision(StatsType t,PokemonType pt, int d)
+    public Decision(StatsType t, PokemonType pt, int d)
     {
         _change = false;
         _newPokId = "";
