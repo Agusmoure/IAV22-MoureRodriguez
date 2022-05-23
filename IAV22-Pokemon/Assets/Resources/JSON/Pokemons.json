@@ -25,12 +25,20 @@
             "backSprite":"Sprites/espeonBack"
         },
         {
-            "natDexNumber":766,
-            "name":"Passimian",
+            "natDexNumber":448,
+            "name":"Lucario",
             "type1":"Lucha",
-            "type2":"None",
-            "frontSprite":"Sprites/umbreonFront",
-            "backSprite":"Sprites/umbreonBack"
+            "type2":"Acero",
+            "frontSprite":"Sprites/lucarioFront",
+            "backSprite":"Sprites/lucarioBack"
+        },
+        {
+            "natDexNumber":302,
+            "name":"Sableye",
+            "type1":"Siniestro",
+            "type2":"Fantasma",
+            "frontSprite":"Sprites/sableyeFront",
+            "backSprite":"Sprites/sableyeBack"
         }
     ]
 }

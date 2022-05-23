@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PokemonType { None, Siniestro, Roca, Psiquico, Fantasma, Normal, Lucha }
-public enum StatsType { Fisico, Especial, None }
+public enum PokemonType { None, Siniestro, Roca, Psiquico, Fantasma, Normal, Lucha,Acero }
+public enum StatsType { Physic, Special, None }
 [System.Serializable]
 public struct PokemonDB
 {
@@ -136,7 +136,7 @@ public class Attacks
     public Dictionary<string, Attack> getAttacks() { return attacks; }
 }
 [System.Serializable]
-public struct Stat
+public class Stat
 {
     int _hp;
     int _currHp;
@@ -150,11 +150,6 @@ public struct Stat
         get { return _currHp; }
         set { _currHp = value; }
     }
-    public void SetCurrHp(int val)
-    {
-        _currHp = val;
-    }
-    public int GetCurrHP() { return _currHp; }
     public int hp
     {
         get { return _hp; }
@@ -260,7 +255,7 @@ public class TeamPokemon
     public Dictionary<string, PokemonInTeam> GetPokemons() { return pokemons; }
 }
 [System.Serializable]
-public struct Movement
+public class Movement
 {
     //string _pokemon;
     string _attack;
@@ -352,16 +347,22 @@ public class Relations
 public struct Damage
 {
     int _damage;
-    StatsType _type;
+    StatsType _movType;
+    PokemonType _pType;
     public int damage
     {
         get { return _damage; }
         set { _damage = value; }
     }
-    public StatsType type
+    public StatsType mtype
     {
-        get { return _type; }
-        set { _type = value; }
+        get { return _movType; }
+        set { _movType = value; }
+    }
+    public PokemonType ptype
+    {
+        get { return _pType; }
+        set { _pType = value; }
     }
 }
 [System.Serializable]
@@ -389,14 +390,16 @@ public class Decision
     {
         _change = true;
         _newPokId = nID;
-        _damage.type= StatsType.None;
+        _damage.mtype= StatsType.None;
         _damage.damage = 0;
+        _damage.ptype = PokemonType.None;
     }
-    public Decision(StatsType t, int d)
+    public Decision(StatsType t,PokemonType pt, int d)
     {
         _change = false;
         _newPokId = "";
-        _damage.type = t;
+        _damage.mtype = t;
+        _damage.ptype = pt;
         _damage.damage = d;
     }
 }

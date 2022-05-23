@@ -2,13 +2,13 @@
     "pokemons":[
         {
             "natDexNumber":196,
-            "nickName":"Maia",
+            "nickName":"Kara",
             "id":"R1",
             "level":25
         },
         {
-            "natDexNumber":248,
-            "nickName":"Rod",
+            "natDexNumber":448,
+            "nickName":"",
             "id":"R2",
             "level":50
         }
@@ -60,12 +60,12 @@
         },
         {
             "id":"R2",
-            "hp":394,
-            "phyDamage":251,
-            "phyDefense":350,
-            "speDamage":240,
-            "speDefense":394,
-            "speed":251
+            "hp":250,
+            "phyDamage":202,
+            "phyDefense":130,
+            "speDamage":211,
+            "speDefense":130,
+            "speed":166
         }
     ]
 }

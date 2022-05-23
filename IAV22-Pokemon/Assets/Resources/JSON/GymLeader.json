@@ -4,13 +4,19 @@
             "natDexNumber":197,
             "nickName":"Maia",
             "id":"LS1",
-            "level":25
+            "level":100
         },
         {
             "natDexNumber":248,
             "nickName":"Rod",
             "id":"LS2",
             "level":50
+        },
+        {
+            "natDexNumber":302,
+            "nickName":"",
+            "id":"LS3",
+            "level":80
         }
     ],
     "moves":[
@@ -45,6 +51,22 @@
         {
             "pokemon":"LS2",
             "attack":"MT0048"
+        },
+        {
+            "pokemon":"LS3",
+            "attack":"MT0097"
+        },
+        {
+            "pokemon":"LS3",
+            "attack":"MT0106"
+        },
+        {
+            "pokemon":"LS3",
+            "attack":"MT0030"
+        },
+        {
+            "pokemon":"LS3",
+            "attack":"MT0095"
         }
     ],
     "stats":[
@@ -59,6 +81,15 @@
         },
         {
             "id":"LS2",
+            "hp":404,
+            "phyDamage":403,
+            "phyDefense":350,
+            "speDamage":317,
+            "speDefense":328,
+            "speed":243
+        },
+        {
+            "id":"LS3",
             "hp":404,
             "phyDamage":403,
             "phyDefense":350,

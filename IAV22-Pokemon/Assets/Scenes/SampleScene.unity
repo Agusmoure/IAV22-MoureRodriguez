@@ -5394,8 +5394,8 @@ MonoBehaviour:
   player: {fileID: 1002972652}
   gymLeader: {fileID: 8899706}
   battle: {fileID: 1548098840}
-  firstRivalPokemon: R1
-  firstGymLeaderPokemon: LS1
+  firstRivalPokemon: R2
+  firstGymLeaderPokemon: LS2
 --- !u!1 &2018430138
 GameObject:
   m_ObjectHideFlags: 0

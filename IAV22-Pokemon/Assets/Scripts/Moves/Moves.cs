@@ -30,19 +30,12 @@ public class Moves : MonoBehaviour
     }
     public Decision DoMovement()
     {
-        return new Decision(attack.damageType,CalculateDamage(GameManager.instance.GetGymLeader().GetPokemonActual(),attack));
+        return new Decision(attack.damageType,attack.type,CalculateDamage(attack));
     }
-    int CalculateDamage(PokemonDB rival, Attack attack)
+    int CalculateDamage( Attack attack)
     {
-        DBComponent db = GameManager.instance.GetDB();
-        Relations rels = db.GetRelations();
-        PokemonType atcType = attack.type;
-        float power;
-        power = rels.GetRelations()[atcType][rival.type1];
-        if (rival.type2 != PokemonType.None)
-            power *= rels.GetRelations()[atcType][rival.type2];
         //daño ataque*tipo ataque*efectividad
-        return attack.damageType == StatsType.Fisico ? (int)(attack.damage * GameManager.instance.GetPlayer().GetActualStat().phyDamage * power) : (int)(attack.damage * GameManager.instance.GetPlayer().GetActualStat().speDamage * power);
+        return attack.damageType == StatsType.Physic ? (int)(attack.damage * GameManager.instance.GetPlayer().GetActualStat().phyDamage) : (int)(attack.damage * GameManager.instance.GetPlayer().GetActualStat().speDamage);
     }
     public void ProcessTurn()
     {

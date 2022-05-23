@@ -215,6 +215,8 @@ public class JSONReader : MonoBehaviour
                 return PokemonType.Fantasma;
             case "normal":
                 return PokemonType.Normal;
+            case "acero":
+                return PokemonType.Acero;
             default:
                 return PokemonType.None;
         }
@@ -224,9 +226,9 @@ public class JSONReader : MonoBehaviour
         switch (type.ToLower())
         {
             case "fisico":
-                return StatsType.Fisico;
+                return StatsType.Physic;
             case "especial":
-                return StatsType.Especial;
+                return StatsType.Special;
             default:
                 return StatsType.None;
         }

@@ -26,6 +26,10 @@
                 {
                     "type":"Roca",
                     "power":1
+                },
+                {
+                    "type":"Acero",
+                    "power":1
                 }
             ]
         },
@@ -54,6 +58,10 @@
                 },
                 {
                     "type":"Roca",
+                    "power":0.5
+                },
+                {
+                    "type":"Acero",
                     "power":0.5
                 }
             ]
@@ -84,6 +92,10 @@
                 {
                     "type":"Roca",
                     "power":2
+                },
+                {
+                    "type":"Acero",
+                    "power":2
                 }
             ]
         },
@@ -112,6 +124,10 @@
                 },
                 {
                     "type":"Roca",
+                    "power":0.5
+                },
+                {
+                    "type":"Acero",
                     "power":0.5
                 }
             ]
@@ -142,6 +158,10 @@
                 {
                     "type":"Roca",
                     "power":1
+                },
+                {
+                    "type":"Acero",
+                    "power":1
                 }
             ]
         },
@@ -171,9 +191,46 @@
                 {
                     "type":"Roca",
                     "power":1
+                },
+                {
+                    "type":"Acero",
+                    "power":0.5
                 }
             ]
         },
+        {
+            "type":"Acero",
+            "relation":[
+                {
+                    "type":"Siniestro",
+                    "power":1
+                },
+                {
+                    "type":"Psiquico",
+                    "power":1
+                },
+                {
+                    "type":"Lucha",
+                    "power":1
+                },
+                {
+                    "type":"Fantasma",
+                    "power":1
+                },
+                {
+                    "type":"Normal",
+                    "power":1
+                },
+                {
+                    "type":"Roca",
+                    "power":2
+                },
+                {
+                    "type":"Acero",
+                    "power":1
+                }
+            ]
+            },
         {
             "type":"None",
             "relation":[
@@ -199,6 +256,10 @@
                 },
                 {
                     "type":"Roca",
+                    "power":1
+                },
+                {
+                    "type":"Acero",
                     "power":1
                 }
             ]

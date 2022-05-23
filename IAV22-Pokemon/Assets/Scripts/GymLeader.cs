@@ -34,8 +34,12 @@ public class GymLeader : MonoBehaviour
     }
     public void ReceiveDamage(Damage d)
     {
+        Relations rels = GameManager.instance.GetDB().GetRelations();
         //Segun el tipo de daño: daño/defensaTipo
-        actualStats.currhp -= d.type == StatsType.Fisico ? d.damage / actualStats.phyDefense : d.damage / actualStats.speDefense;
+        float power = d.damage* rels.GetRelations()[d.ptype][actualPokemon.type1];
+        if (actualPokemon.type2 != PokemonType.None)
+            power *= rels.GetRelations()[d.ptype][actualPokemon.type2];
+        actualStats.currhp -= d.mtype == StatsType.Physic ?(int)(power / actualStats.phyDefense ): (int)(power / actualStats.speDefense);
         if (actualStats.currhp < 0) actualStats.currhp = 0;
         battleHud.UpdateLive(actualStats.currhp);
         Debug.Log("GYM RECEIVA DAMAGE");
@@ -56,7 +60,8 @@ public class GymLeader : MonoBehaviour
         {
             Movement bM = BestMovement(GameManager.instance.GetPlayer().GetPokemonActual());
             bM.currpp--;
-            d = new Decision(GameManager.instance.GetDB().GetAttacks().getAttacks()[bM.attack].damageType, CalculateDamage(GameManager.instance.GetPlayer().GetPokemonActual(), bM));
+            Attack attack = GameManager.instance.GetDB().GetAttacks().getAttacks()[bM.attack];
+            d = new Decision(attack.damageType, attack.type,attack.damageType == StatsType.Physic ? (int)(attack.damage * actualStats.phyDamage) : (int)(attack.damage * actualStats.speDamage));
         }
         else
         {
@@ -77,16 +82,12 @@ public class GymLeader : MonoBehaviour
             {
                 PokemonDB pokemon = GameManager.instance.GetDB().GetPokemons().getPokemons()[pok.pokemon];
                 actual = rels.GetRelations()[rival.type1][pokemon.type1];
-                Debug.Log("A" + actual + " B" + best + " RT1-->" + rival.type1.ToString());
-                Debug.Log("A" + actual + " B" + best + " PT1-->" + pokemon.type1.ToString());
                 if (rival.type2 != PokemonType.None)
                     actual *= rels.GetRelations()[rival.type2][pokemon.type1];
                 if (pokemon.type2 != PokemonType.None)
                 {
-                    Debug.Log("A" + actual + " B" + best + " RT2-->" + rival.type2.ToString());
-                    actual += rels.GetRelations()[rival.type1][pokemon.type2];
+                    actual *= rels.GetRelations()[rival.type1][pokemon.type2];
                     if (rival.type2 != PokemonType.None)
-                        Debug.Log("A" + actual + " B" + best + " PT2-->" + pokemon.type2.ToString());
                     actual *= rels.GetRelations()[rival.type2][pokemon.type2];
                 }
                 if (actual < best || (actual == best && pok.id == idActualPokemon))
@@ -138,7 +139,7 @@ public class GymLeader : MonoBehaviour
         if (rival.type2 != PokemonType.None)
             power *= rels.GetRelations()[atcType][rival.type2];
         //daño ataque*tipo ataque*efectividad
-        return attack.damageType == StatsType.Fisico ? (int)(attack.damage * actualStats.phyDamage * power) : (int)(attack.damage * actualStats.speDamage * power);
+        return attack.damageType == StatsType.Physic ? (int)(attack.damage * actualStats.phyDamage * power) : (int)(attack.damage * actualStats.speDamage * power);
     }
     public string GetIDActualPokemon()
     {

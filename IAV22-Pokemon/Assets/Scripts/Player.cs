@@ -45,7 +45,12 @@ public class Player : MonoBehaviour
     {
         //Segun el tipo de daño: daño/defensaTipo
         Debug.Log("PLAYER RECEIVEDAMAGE");
-        actualStats.currhp -= d.type == StatsType.Fisico ? d.damage / actualStats.phyDefense : d.damage / actualStats.speDefense;
+        Relations rels = GameManager.instance.GetDB().GetRelations();
+        //Segun el tipo de daño: daño/defensaTipo
+        float power = d.damage * rels.GetRelations()[d.ptype][actualPokemon.type1];
+        if (actualPokemon.type2 != PokemonType.None)
+            power *= rels.GetRelations()[d.ptype][actualPokemon.type2];
+        actualStats.currhp -= d.mtype == StatsType.Physic ?(int)(power / actualStats.phyDefense ): (int)(power / actualStats.speDefense);
         if (actualStats.currhp < 0) actualStats.currhp = 0;
         battleHud.UpdateLive(actualStats.currhp);
 

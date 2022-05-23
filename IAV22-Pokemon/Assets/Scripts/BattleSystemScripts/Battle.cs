@@ -26,7 +26,7 @@ public class Battle : MonoBehaviour
             else
             {
             Debug.Log("PLAYER CAMBIA GYM ATACA");
-                player.ReceiveDamage(gymLeaderDecision.damage);
+              //  player.ReceiveDamage(gymLeaderDecision.damage);
             }
         }
         else
@@ -42,8 +42,9 @@ public class Battle : MonoBehaviour
                 if (GameManager.instance.GetDB().GetStats().GetStats()[player.GetIDActualPokemon()].speed < GameManager.instance.GetDB().GetStats().GetStats()[gymLeader.GetIDActualPokemon()].speed)
                 {
                      Debug.Log("GYM ATACA PLAYER ATACA");
-                    player.ReceiveDamage(gymLeaderDecision.damage);
+                    //  player.ReceiveDamage(gymLeaderDecision.damage);
                     //Gestionar la muerte del pokemon del jugador
+                    gymLeader.ReceiveDamage(playerDecision.damage);
                 }
                 else
                 {
