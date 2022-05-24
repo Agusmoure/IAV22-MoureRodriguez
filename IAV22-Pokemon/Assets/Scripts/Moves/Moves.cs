@@ -33,6 +33,7 @@ public class Moves : MonoBehaviour
         _movement.currpp--;
         return new Decision(attack.damageType,attack.type,CalculateDamage(attack));
     }
+    //Calcula el daño sin tener en cuenta el tipo del rival 
     int CalculateDamage( Attack attack)
     {
         //daño ataque*tipo ataque*efectividad

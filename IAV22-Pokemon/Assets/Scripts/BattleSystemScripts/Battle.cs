@@ -12,6 +12,7 @@ public class Battle : MonoBehaviour
         GymLeader gymLeader = GameManager.instance.GetGymLeader();
         if (playerDecision.change)
         {
+            //El pokemon elegido no es válido
             if (playerDecision.newPokemonID == "")
             {
                 player.PokemonChanged();
@@ -19,11 +20,11 @@ public class Battle : MonoBehaviour
             }
             player.ChangePokemon(playerDecision.newPokemonID);
 
-            if (gymLeaderDecision.change)
+            if (gymLeaderDecision.change)//Los dos cambian
             {
                 gymLeader.ChangePokemon(gymLeaderDecision.newPokemonID);
             }
-            else
+            else//El lider no cambia
             {
                 player.ReceiveDamage(gymLeaderDecision.damage);
                 Debug.Log("GYMLEADER EJECUTA ATAQUE");
@@ -34,9 +35,9 @@ public class Battle : MonoBehaviour
                 }
             }
         }
-        else
+        else//el jugador ataca
         {
-            if (gymLeaderDecision.change)
+            if (gymLeaderDecision.change)//Lider cambia pokemon
             {
                 gymLeader.ChangePokemon(gymLeaderDecision.newPokemonID);
                 gymLeader.ReceiveDamage(playerDecision.damage);
@@ -46,7 +47,7 @@ public class Battle : MonoBehaviour
                     Debug.Log("MUERE POKEMON DE GYMLEADER");
                 }
             }
-            else
+            else//Los dos atacan
             {
                 if (GameManager.instance.GetDB().GetStats().GetStats()[player.GetIDActualPokemon()].speed < GameManager.instance.GetDB().GetStats().GetStats()[gymLeader.GetIDActualPokemon()].speed)
                 {

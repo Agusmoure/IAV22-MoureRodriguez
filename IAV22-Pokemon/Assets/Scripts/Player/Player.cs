@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     {
         
     }
+    //Cambia el pokemon por el pokemon dado
     public void ChangePokemon(string newPokemon)
     {
         DBComponent db = GameManager.instance.GetDB();
@@ -43,11 +44,11 @@ public class Player : MonoBehaviour
         movesHud.SetMoves(atc);
         PokemonChanged();
     }
+    //Recibe el daño y lo procesa
     public void ReceiveDamage(Damage d)
     {
         //Segun el tipo de daño: daño/defensaTipo
         Relations rels = GameManager.instance.GetDB().GetRelations();
-        //Segun el tipo de daño: daño/defensaTipo
         float power = d.damage * rels.GetRelations()[d.ptype][actualPokemon.type1];
         if (actualPokemon.type2 != PokemonType.None)
             power *= rels.GetRelations()[d.ptype][actualPokemon.type2];

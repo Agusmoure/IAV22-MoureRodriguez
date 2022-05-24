@@ -11,7 +11,7 @@ public class GymLeader : MonoBehaviour
     string idActualPokemon;
     Stat actualStats;
     Movement[] moves;
-
+    //Cambia el pokemon actual al dado por la id pasada
     public void ChangePokemon(string newPokemon)
     {
         DBComponent db = GameManager.instance.GetDB();
@@ -32,6 +32,7 @@ public class GymLeader : MonoBehaviour
         for (int j = db.GetMovements().GetMoves()[idActualPokemon].Count; j < 4; j++)
             moves[j] = new Movement("", 0);
     }
+    //recibe el daño enviado y lo procesa según el pokemon que lo recibe
     public void ReceiveDamage(Damage d)
     {
         Relations rels = GameManager.instance.GetDB().GetRelations();
@@ -44,11 +45,12 @@ public class GymLeader : MonoBehaviour
         battleHud.UpdateLive(actualStats.currhp);
 
     }
+    //Devuelve el pokemon actual
     public PokemonDB GetPokemonActual()
     {
         return actualPokemon;
     }
-
+    //Elige que accion realizar
     public Decision Think()
     {
         Decision d;
@@ -70,6 +72,7 @@ public class GymLeader : MonoBehaviour
         }
         return d;
     }
+    //Determina el mejor pokemon
     string BestPokemon(PokemonDB rival, Dictionary<string, PokemonInTeam> pokemons)
     {
         float best = 99, actual = 99;
@@ -101,6 +104,7 @@ public class GymLeader : MonoBehaviour
         }
         return idBetter;
     }
+    //Determina el mejor movimiento
     Movement BestMovement(PokemonDB rival)
     {
         float maxDamage = 0;
@@ -129,6 +133,7 @@ public class GymLeader : MonoBehaviour
             return moves[Random.Range(0, db.GetMovements().GetMoves()[idActualPokemon].Count)];
 
     }
+    //Calcula el danio teniendo en cuenta el tipo del rival
     int CalculateDamage(PokemonDB rival, Movement m)
     {
         DBComponent db = GameManager.instance.GetDB();
@@ -142,10 +147,12 @@ public class GymLeader : MonoBehaviour
         //daño ataque*tipo ataque*efectividad
         return attack.damageType == StatsType.Physic ? (int)(attack.damage * actualStats.phyDamage * power) : (int)(attack.damage * actualStats.speDamage * power);
     }
+    //Devuelve la ID del pokemon actual
     public string GetIDActualPokemon()
     {
         return idActualPokemon;
     }
+    //Procesa la muerte del pokemon actual
     public void DieCurrentPokemon()
     {
         string aux = BestPokemon(GameManager.instance.GetPlayer().GetPokemonActual(), GameManager.instance.GetDB().GetGymLeaderTeam().GetPokemons());

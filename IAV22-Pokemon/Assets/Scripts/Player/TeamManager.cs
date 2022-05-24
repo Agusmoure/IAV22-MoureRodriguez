@@ -24,6 +24,7 @@ public class TeamManager : MonoBehaviour
     {
         
     }
+    //Enseña los pokemons del jugador
    public void ShowTeam()
     {
         PokemonInTeam pEmpty = new PokemonInTeam("empty",new PokemonDB(),0);

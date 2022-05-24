@@ -120,9 +120,10 @@ public class JSONReader : MonoBehaviour
     PokemonsStatsAux gymLeaderStatsAux;
     PokemonsStatsAux rivalStatsAux;
     RelationsAuxArray relationsAux;
-    // Start is called before the first frame update
+    // 
     void Start()
     {
+        //Carga de datos
         db = transform.GetComponent<DBComponent>();
         pokemonsAux = JsonUtility.FromJson<PokemonsAux>(PokemonFile.text);
         attacksAux = JsonUtility.FromJson<AttacksAux>(AttackFile.text);
