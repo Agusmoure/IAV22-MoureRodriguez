@@ -175,10 +175,13 @@ funtion BestMovement(Pokemon rival)
 
 ### 7. Video
 
+[![Video](AssetsREADME/Video.png)](AssetsREADME/ProyectoIA.mp4)
 
 ### 8. Errores conocidos
 
+* No hay feedback visual para saber que ataque ha realizado la IA
 
+* Para evitar posibles problemas las palabras con "ñ" han sido sustituidas por "ni" ejemplo arañazo ==> araniazo
 
 ### 9. Bibliografía
 
